@@ -25,8 +25,8 @@ update action model =
 view address model =
     div []
         [ 
-            button [] [ text "jep"]
-            --input []
+          input [] []
+        , button [] [ text "jep"]
         ]
 
 main =
