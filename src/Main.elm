@@ -23,7 +23,7 @@ type alias HourEntry =
     }
 
 emptyModel : Model
-emptyModel = 
+emptyModel =
     { projects = []
     }
 
@@ -56,13 +56,14 @@ update action model =
 view : Address Action -> Model -> Html
 view address model =
     div []
-    [ 
+    [
         input [] []
     , button [] [ text "jep"]
     ]
 
 main =
     StartApp.start
-    { model = emptyModel 
+    { model = emptyModel
     , update = update
     , view = view }
+
