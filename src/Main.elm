@@ -59,8 +59,7 @@ view : Address Action -> Model -> Html
 view address model =
     div
       [ class "main"]
-      [
-      table []
+      [ table []
         [ thead []
           [ th [][]
           , th []
@@ -78,18 +77,18 @@ view address model =
           , th []
                [ text "Su" ]
           ]
+        , tbody []
+            (List.map projectRow model.projects)
         ]
-      --, button [] [ text "jep"]
-      , ul
-        [ id "project-list" ]
-        (List.map projectName model.projects)
       ]
 
-projectName : Project -> Html
-projectName project =
-    li
+projectRow : Project -> Html
+projectRow project =
+    tr
       []
-      [ text project.name ]
+      [ td []
+        [ text project.name ]
+      ]
 
 main =
     StartApp.start
