@@ -9,11 +9,17 @@ import Signal exposing (Signal, Address)
 
 type alias Model =
     { projects : List Project
-    }
+}
 
 type alias Project =
     { id : Int
     , name : String
+    , hourEntries : List HourEntry
+}
+
+type alias HourEntry =
+    { date : Int
+    , hours : Float
 }
 
 emptyModel : Model
@@ -23,12 +29,12 @@ emptyModel =
 
 -- UPDATE
 
-type Action = Reset
+type Action = Update
 
 update : Action -> Model -> Model
 update action model =
-  case action of
-    Reset -> model
+    case action of
+        Update -> model
 
 -- VIEW
 
