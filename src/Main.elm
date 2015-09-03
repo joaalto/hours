@@ -86,7 +86,6 @@ projectRow project =
        List.map (\e ->
           td [] [input [value (toString e.hours)] []])
           project.hourEntries)
-      
 
 main =
     StartApp.start
