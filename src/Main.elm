@@ -9,22 +9,37 @@ import Signal exposing (Signal, Address)
 
 type alias Model =
     { projects : List Project
-}
+    }
 
 type alias Project =
     { id : Int
     , name : String
     , hourEntries : List HourEntry
-}
+    }
 
 type alias HourEntry =
     { date : Int
     , hours : Float
-}
+    }
 
 emptyModel : Model
 emptyModel = 
     { projects = []
+    }
+
+mockData : Model
+mockData =
+    { projects =
+        [
+            { id = 1
+            , name = "Eka projekti"
+            , hourEntries = []
+            },
+            { id = 2
+            , name = "Toka projekti"
+            , hourEntries = []
+        }
+        ]
     }
 
 -- UPDATE
@@ -41,10 +56,10 @@ update action model =
 view : Address Action -> Model -> Html
 view address model =
     div []
-        [ 
-          input [] []
-        , button [] [ text "jep"]
-        ]
+    [ 
+        input [] []
+    , button [] [ text "jep"]
+    ]
 
 main =
     StartApp.start
