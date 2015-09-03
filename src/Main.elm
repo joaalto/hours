@@ -82,10 +82,10 @@ projectRow : Project -> Html
 projectRow project =
     tr
       []
-      ((td [] [text project.name]) ::
-      (List.map (\e -> td []
-          [input [value (toString e.hours)] []])
-          project.hourEntries))
+      (td [] [text project.name] ::
+      List.map (\e ->
+          td [] [input [value (toString e.hours)] []])
+          project.hourEntries)
       
 
 main =
