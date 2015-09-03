@@ -2,7 +2,7 @@ module Main where
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onClick)
+import Html.Events exposing (..)
 import StartApp.Simple as StartApp
 import Signal exposing (Signal, Address)
 
@@ -60,8 +60,28 @@ view address model =
     div
       [ class "main"]
       [
-        input [] []
-      , button [] [ text "jep"]
+      table []
+        [ thead []
+          [
+              th [][]
+            , th []
+                 [ text "Ma" ]
+            , th []
+                 [ text "Ti" ]
+            , th []
+                 [ text "Ke" ]
+            , th []
+                 [ text "To" ]
+            , th []
+                 [ text "Pe" ]
+            , th []
+                 [ text "La" ]
+            , th []
+                 [ text "Su" ]
+          ]
+          
+        ] 
+      --, button [] [ text "jep"]
       , ul
         [ id "project-list" ]
         (List.map projectName model.projects)
