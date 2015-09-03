@@ -35,7 +35,10 @@ mockData =
         [
             { id = 1
             , name = "Eka projekti"
-            , hourEntries = []
+            , hourEntries = [
+                { date = 123
+                , hours = 7.5
+                }]
             },
             { id = 2
             , name = "Toka projekti"
@@ -79,9 +82,11 @@ projectRow : Project -> Html
 projectRow project =
     tr
       []
-      [ td []
-        [ text project.name ]
-      ]
+      ((td [] [text project.name]) ::
+      (List.map (\e -> td []
+          [input [value (toString e.hours)] []])
+          project.hourEntries))
+      
 
 main =
     StartApp.start
