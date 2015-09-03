@@ -69,13 +69,9 @@ view address model =
 
 projectName : Project -> Html
 projectName project =
-    div
-    []
-    [
-      li
-        []
-        [ text project.name ]
-    ]
+    li
+      []
+      [ text project.name ]
 
 main =
     StartApp.start
