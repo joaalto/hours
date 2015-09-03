@@ -1,9 +1,11 @@
-import Html exposing (div, input, button, text, Html)
+module Main where
+
+import Html exposing (..)
+import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
 import StartApp.Simple as StartApp
 import Signal exposing (Signal, Address)
 
---module Main where
 
 -- MODEL
 
@@ -55,15 +57,29 @@ update action model =
 
 view : Address Action -> Model -> Html
 view address model =
-    div []
-    [
+    div
+      [ class "main"]
+      [
         input [] []
-    , button [] [ text "jep"]
+      , button [] [ text "jep"]
+      , ul
+        [ id "project-list" ]
+        (List.map projectName model.projects)
+      ]
+
+projectName : Project -> Html
+projectName project =
+    div
+    []
+    [
+      li
+        []
+        [ text project.name ]
     ]
 
 main =
     StartApp.start
-    { model = emptyModel
+    { model = mockData
     , update = update
     , view = view }
 
