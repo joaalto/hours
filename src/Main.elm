@@ -7,7 +7,19 @@ import Signal exposing (Signal, Address)
 
 -- MODEL
 
-type alias Model = { }
+type alias Model =
+    { projects : List Project
+    }
+
+type alias Project =
+    { id : Int
+    , name : String
+}
+
+emptyModel : Model
+emptyModel = 
+    { projects = []
+    }
 
 -- UPDATE
 
@@ -20,8 +32,7 @@ update action model =
 
 -- VIEW
 
---view : Address Action -> Model -> Html
-
+view : Address Action -> Model -> Html
 view address model =
     div []
         [ 
@@ -31,6 +42,6 @@ view address model =
 
 main =
     StartApp.start
-    { model = {}
+    { model = emptyModel 
     , update = update
     , view = view }
