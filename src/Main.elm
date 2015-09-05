@@ -20,7 +20,7 @@ type alias Project =
     }
 
 type alias HourEntry =
-    { date : Int
+    { dayOfWeek : Int
     , hours : Float
     }
 
@@ -35,15 +35,19 @@ mockData =
         [
             { id = 1
             , name = "Eka projekti"
-            , hourEntries = [
-                { date = 123
-                , hours = 7.5
-                }]
+            , hourEntries =
+                [ { dayOfWeek = 0
+                  , hours = 7.5
+                  }
+                , { dayOfWeek = 3
+                  , hours = 7.5
+                  }
+                ]
             },
             { id = 2
             , name = "Toka projekti"
             , hourEntries = []
-        }
+            }
         ]
     }
 
