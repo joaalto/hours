@@ -47,6 +47,8 @@ mockData =
         ]
     }
 
+weekDays = [ "Ma", "Ti", "Ke", "To", "Pe", "La", "Su" ]
+
 -- UPDATE
 
 type Action = Update
@@ -64,15 +66,10 @@ view address model =
       [ class "main"]
       [ table []
         [ thead []
-          [ th [][]
-          , th [] [ text "Ma" ]
-          , th [] [ text "Ti" ]
-          , th [] [ text "Ke" ]
-          , th [] [ text "To" ]
-          , th [] [ text "Pe" ]
-          , th [] [ text "La" ]
-          , th [] [ text "Su" ]
-          ]
+          (th [][] ::
+           List.map (\d ->
+              th [] [ text d ])
+              weekDays)
         , tbody []
             (List.map projectRow model.projects)
         ]
