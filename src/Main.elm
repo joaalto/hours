@@ -5,7 +5,8 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import StartApp.Simple as StartApp
 import Signal exposing (Signal, Address)
-
+import Date
+import Array
 
 -- MODEL
 
@@ -17,6 +18,7 @@ type alias Project =
     { id : Int
     , name : String
     , hourEntries : List HourEntry
+    --, hourEntries : List HourEntry
     }
 
 type alias HourEntry =
@@ -46,7 +48,11 @@ mockData =
             },
             { id = 2
             , name = "Toka projekti"
-            , hourEntries = []
+            , hourEntries =
+                [ { dayOfWeek = 4
+                  , hours = 3.5
+                  }
+                ]
             }
         ]
     }
@@ -84,9 +90,21 @@ projectRow project =
     tr
       []
       (td [] [text project.name] ::
-       List.map (\e ->
-          td [] [input [value (toString e.hours)] []])
-          project.hourEntries)
+       List.map (\dayOfWeek ->
+          td [] [input [value (entryHours (projectEntry dayOfWeek project))] []])
+          [0..6])
+
+entryHours : Maybe HourEntry -> String
+entryHours projectEntry =
+    case projectEntry of
+        Nothing -> ""
+        Just entry -> toString entry.hours
+
+projectEntry : Int -> Project -> Maybe HourEntry
+projectEntry dayOfWeek project =
+    project.hourEntries
+    |> List.filter (\e -> e.dayOfWeek == dayOfWeek)
+    |> List.head
 
 main =
     StartApp.start
