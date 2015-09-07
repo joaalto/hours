@@ -29,8 +29,7 @@ projectRow project =
       []
       (td [] [text project.name] ::
        List.map (\dayOfWeek ->
-          td [] [input [value
-              (projectEntry dayOfWeek project)] []])
+          td [] [input [value (projectEntry dayOfWeek project)] []])
           [0..6])
 
 projectEntry : Int -> Project -> String
