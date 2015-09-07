@@ -30,18 +30,16 @@ projectRow project =
       (td [] [text project.name] ::
        List.map (\dayOfWeek ->
           td [] [input [value
-              (projectEntry dayOfWeek project
-              |> entryHours)] []])
+              (projectEntry dayOfWeek project)] []])
           [0..6])
 
-entryHours : Maybe HourEntry -> String
-entryHours projectEntry =
-    case projectEntry of
-        Nothing -> ""
-        Just entry -> toString entry.hours
-
-projectEntry : Int -> Project -> Maybe HourEntry
+projectEntry : Int -> Project -> String
 projectEntry dayOfWeek project =
-    project.hourEntries
-    |> List.filter (\e -> e.dayOfWeek == dayOfWeek)
-    |> List.head
+    let projectEntry = project.hourEntries
+        |> List.filter (\e -> e.dayOfWeek == dayOfWeek)
+        |> List.head
+    in
+        case projectEntry of
+            Nothing -> ""
+            Just entry -> toString entry.hours
+
