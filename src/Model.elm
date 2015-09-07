@@ -8,7 +8,6 @@ type alias Project =
     { id : Int
     , name : String
     , hourEntries : List HourEntry
-    --, hourEntries : List HourEntry
     }
 
 type alias HourEntry =
