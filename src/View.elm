@@ -29,7 +29,9 @@ projectRow project =
       []
       (td [] [text project.name] ::
        List.map (\dayOfWeek ->
-          td [] [input [value (entryHours (projectEntry dayOfWeek project))] []])
+          td [] [input [value
+              (projectEntry dayOfWeek project
+              |> entryHours)] []])
           [0..6])
 
 entryHours : Maybe HourEntry -> String
