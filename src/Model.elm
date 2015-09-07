@@ -21,6 +21,8 @@ emptyModel =
     { projects = []
     }
 
+weekDays = [ "Ma", "Ti", "Ke", "To", "Pe", "La", "Su" ]
+
 mockData : Model
 mockData =
     { projects =
@@ -46,6 +48,4 @@ mockData =
             }
         ]
     }
-
-weekDays = [ "Ma", "Ti", "Ke", "To", "Pe", "La", "Su" ]
 
