@@ -4,6 +4,10 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Signal exposing (Signal, Address)
+import Time exposing (Time, every, second)
+import Date exposing (year, hour, minute, second, fromTime)
+import Graphics.Element exposing (Element, show)
+import Task exposing (Task)
 
 import Model exposing (..)
 import Update exposing (Action)
@@ -12,7 +16,8 @@ view : Address Action -> Model -> Html
 view address model =
     div
       [ class "main"]
-      [ table []
+      [ text "" 
+      , table []
         [ thead []
           (th [][] ::
            List.map (\d ->
@@ -21,7 +26,23 @@ view address model =
         , tbody []
             (List.map projectRow model.projects)
         ]
+      --, datex
       ]
+
+--date : Element
+{--
+datex : Signal Element -- (Task x ())
+datex =
+    Time.every Time.second
+    |> Signal.map currentTime
+    --}
+
+{--
+port runner : Signal Element
+port runner =
+    date
+    -- |> show
+--}
 
 projectRow : Project -> Html
 projectRow project =

@@ -2,6 +2,7 @@ module Model where
 
 type alias Model =
     { projects : List Project
+    , time : String
     }
 
 type alias Project =
@@ -18,13 +19,15 @@ type alias HourEntry =
 emptyModel : Model
 emptyModel =
     { projects = []
+    , time = ""
     }
 
 weekDays = [ "Ma", "Ti", "Ke", "To", "Pe", "La", "Su" ]
 
 mockData : Model
 mockData =
-    { projects =
+    { time = ""
+    , projects =
         [
             { id = 1
             , name = "Eka projekti"
