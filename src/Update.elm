@@ -3,7 +3,8 @@ module Update where
 import Model exposing (..)
 
 type Action
-    = Update
+    = NoOp
+    | Update
     | UpdateTime String
 
 update : Action -> Model -> Model

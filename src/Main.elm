@@ -3,19 +3,14 @@ module Main where
 import StartApp.Simple as StartApp
 
 import Model exposing (..)
-import Update exposing (update)
+import Update exposing (Action, update)
 import View exposing (view)
 import Time exposing (Time, every, minute)
 import Date exposing (year, hour, minute, second, fromTime)
-import Signal exposing (Signal, Address)
+import Signal exposing (Signal, Mailbox, Address)
 import Task exposing (Task)
 import Html exposing (..)
 import Graphics.Element exposing (Element, show)
-
-timeSignal : Signal String
-timeSignal =
-  every Time.second
-  |> Signal.map currentTime
 
 currentTime : Float -> String
 currentTime t =
@@ -26,22 +21,54 @@ currentTime t =
       year' = toString (year date')
       now = "The current time is: " ++ hour' ++ ":" ++ minute' ++ ":" ++ second'
   in 
-      now
+      toString now
 
-contentMailbox : Signal.Mailbox String
-contentMailbox =
+-- manage the model of our application over time
+model : Signal Model
+model =
+  Signal.foldp update model0 actions.signal
+
+-- actions from user input
+actions : Signal.Mailbox Action
+actions =
+  Signal.mailbox Update.NoOp
+
+--
+timeSignal : Signal String
+timeSignal =
+  every Time.second
+  --|> Signal.map currentTime taskMailbox.signal
+  |> Signal.map currentTime
+--}
+
+taskMailbox : Mailbox String --(Task error value)
+taskMailbox =
   Signal.mailbox ""
 
 -- Actually perform all those tasks
-{--
-port runner : Signal (Task x ())
+{--}
+port runner : Signal String --(Task x ())
 port runner =
   timeSignal
 --}
 
+{--
+mainy : Signal String
+mainy =
+  Signal.map currentTime taskMailbox.signal
+--}
+
+{--}
+main : Signal Html
 main =
+  --Signal.map currentTime model
+  Signal.map (view actions.address) model
+--}
+{--
+mainx =
     StartApp.start
-    { model = mockData
+    { model = model
     , update = update
     , view = view }
+--}
 

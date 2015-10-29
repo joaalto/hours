@@ -24,8 +24,8 @@ emptyModel =
 
 weekDays = [ "Ma", "Ti", "Ke", "To", "Pe", "La", "Su" ]
 
-mockData : Model
-mockData =
+model0 : Model
+model0 =
     { time = ""
     , projects =
         [
