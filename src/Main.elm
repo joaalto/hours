@@ -14,24 +14,24 @@ import Graphics.Element exposing (Element, show)
 
 currentTime : Float -> String
 currentTime t =
-  let date' = fromTime t
-      hour' = toString (Date.hour date')
-      minute' = toString (Date.minute date')
-      second' = toString (Date.second date')
-      year' = toString (year date')
-      now = "The current time is: " ++ hour' ++ ":" ++ minute' ++ ":" ++ second'
-  in 
-      toString now
+    let date' = fromTime t
+        hour' = toString (Date.hour date')
+        minute' = toString (Date.minute date')
+        second' = toString (Date.second date')
+        year' = toString (year date')
+        now = "The current time is: " ++ hour' ++ ":" ++ minute' ++ ":" ++ second'
+    in 
+       toString now
 
 -- manage the model of our application over time
 model : Signal Model
 model =
-  Signal.foldp update model0 timeAction
+    Signal.foldp update model0 timeAction
 
 -- mailbox for actions
 actions : Signal.Mailbox Action
 actions =
-  Signal.mailbox Update.NoOp
+    Signal.mailbox Update.NoOp
 
 timeAction : Signal Action
 timeAction =
@@ -39,10 +39,10 @@ timeAction =
 
 timeSignal : Signal String
 timeSignal =
-  every Time.second
-  |> Signal.map currentTime
+    every Time.second
+    |> Signal.map currentTime
 
 main : Signal Html
 main =
-  Signal.map (view actions.address) model
+    Signal.map (view actions.address) model
 
