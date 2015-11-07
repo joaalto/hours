@@ -26,21 +26,18 @@ currentTime t =
 -- manage the model of our application over time
 model : Signal Model
 model =
-    Signal.foldp update model0 timeAction
+    Signal.foldp update model0 timeSignal
 
 -- mailbox for actions
 actions : Signal.Mailbox Action
 actions =
     Signal.mailbox Update.NoOp
 
-timeAction : Signal Action
-timeAction =
-    Signal.map Update.UpdateTime timeSignal
-
-timeSignal : Signal String
+timeSignal : Signal Action
 timeSignal =
     every Time.second
     |> Signal.map currentTime
+    |> Signal.map Update.UpdateTime
 
 main : Signal Html
 main =
