@@ -2,12 +2,7 @@ module View where
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (..)
-import Signal exposing (Signal, Address)
-import Time exposing (Time, every, second)
-import Date exposing (year, hour, minute, second, fromTime)
-import Graphics.Element exposing (Element, show)
-import Task exposing (Task)
+import Signal exposing (Address)
 
 import Model exposing (..)
 import Update exposing (Action)
