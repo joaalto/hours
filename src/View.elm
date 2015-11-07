@@ -16,7 +16,7 @@ view : Address Action -> Model -> Html
 view address model =
     div
       [ class "main"]
-      [ text "" 
+      [ text model.time 
       , table []
         [ thead []
           (th [][] ::
@@ -26,23 +26,7 @@ view address model =
         , tbody []
             (List.map projectRow model.projects)
         ]
-      --, datex
       ]
-
---date : Element
-{--
-datex : Signal Element -- (Task x ())
-datex =
-    Time.every Time.second
-    |> Signal.map currentTime
-    --}
-
-{--
-port runner : Signal Element
-port runner =
-    date
-    -- |> show
---}
 
 projectRow : Project -> Html
 projectRow project =

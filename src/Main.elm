@@ -26,49 +26,34 @@ currentTime t =
 -- manage the model of our application over time
 model : Signal Model
 model =
-  Signal.foldp update model0 actions.signal
+  Signal.foldp update model0 timeAction
 
 -- actions from user input
 actions : Signal.Mailbox Action
 actions =
   Signal.mailbox Update.NoOp
 
+timeAction : Signal Action
+timeAction =
+    Signal.map Update.UpdateTime timeSignal
+
 --
 timeSignal : Signal String
 timeSignal =
   every Time.second
-  --|> Signal.map currentTime taskMailbox.signal
   |> Signal.map currentTime
 --}
 
-taskMailbox : Mailbox String --(Task error value)
-taskMailbox =
-  Signal.mailbox ""
-
--- Actually perform all those tasks
-{--}
-port runner : Signal String --(Task x ())
-port runner =
-  timeSignal
---}
-
-{--
-mainy : Signal String
-mainy =
-  Signal.map currentTime taskMailbox.signal
---}
+--sendTime : Address Action -> Action
+sendTime : Address Action -> (String -> Signal.Message)
+sendTime address =
+  Signal.message address << Update.UpdateTime
 
 {--}
+--main : Signal String --Html
 main : Signal Html
 main =
-  --Signal.map currentTime model
+ -- Signal.map currentTime model
   Signal.map (view actions.address) model
---}
-{--
-mainx =
-    StartApp.start
-    { model = model
-    , update = update
-    , view = view }
 --}
 
