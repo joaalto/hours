@@ -28,7 +28,7 @@ model : Signal Model
 model =
   Signal.foldp update model0 timeAction
 
--- actions from user input
+-- mailbox for actions
 actions : Signal.Mailbox Action
 actions =
   Signal.mailbox Update.NoOp
@@ -37,23 +37,12 @@ timeAction : Signal Action
 timeAction =
     Signal.map Update.UpdateTime timeSignal
 
---
 timeSignal : Signal String
 timeSignal =
   every Time.second
   |> Signal.map currentTime
---}
 
---sendTime : Address Action -> Action
-sendTime : Address Action -> (String -> Signal.Message)
-sendTime address =
-  Signal.message address << Update.UpdateTime
-
-{--}
---main : Signal String --Html
 main : Signal Html
 main =
- -- Signal.map currentTime model
   Signal.map (view actions.address) model
---}
 
