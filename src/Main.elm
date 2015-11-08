@@ -18,7 +18,7 @@ currentTime t =
         second' = toString (Date.second date')
         year' = toString (year date')
         now = "The current time is: " ++ hour' ++ ":" ++ minute' ++ ":" ++ second'
-    in 
+    in
        toString now
 
 -- manage the model of our application over time
@@ -27,8 +27,8 @@ model =
     Signal.foldp update model0 timeSignal
 
 -- mailbox for actions
-actions : Signal.Mailbox Action
-actions =
+actionMailbox : Signal.Mailbox Action
+actionMailbox =
     Signal.mailbox Update.NoOp
 
 timeSignal : Signal Action
@@ -39,5 +39,4 @@ timeSignal =
 
 main : Signal Html
 main =
-    Signal.map (view actions.address) model
-
+    Signal.map (view actionMailbox.address) model
