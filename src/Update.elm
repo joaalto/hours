@@ -13,5 +13,3 @@ update action model =
         Update -> model
         UpdateTime currentTime ->
             { model | time <- currentTime }
-
-

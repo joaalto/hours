@@ -11,7 +11,7 @@ view : Address Action -> Model -> Html
 view address model =
     div
       [ class "main"]
-      [ text model.time 
+      [ text model.time
       , table []
         [ thead []
           (th [][] ::
@@ -41,4 +41,3 @@ projectEntry dayOfWeek project =
         case projectEntry of
             Nothing -> ""
             Just entry -> toString entry.hours
-

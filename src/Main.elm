@@ -1,7 +1,5 @@
 module Main where
 
-import StartApp.Simple as StartApp
-
 import Model exposing (..)
 import Update exposing (Action, update)
 import View exposing (view)
