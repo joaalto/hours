@@ -8,9 +8,7 @@ import View exposing (view)
 import Time exposing (Time, every, minute)
 import Date exposing (year, hour, minute, second, fromTime)
 import Signal exposing (Signal, Mailbox, Address)
-import Task exposing (Task)
 import Html exposing (..)
-import Graphics.Element exposing (Element, show)
 
 currentTime : Float -> String
 currentTime t =
