@@ -17,7 +17,7 @@ currentTime t =
         year' = toString (year date')
         now = "The current time is: " ++ hour' ++ ":" ++ minute' ++ ":" ++ second'
     in
-       toString now
+        now
 
 -- manage the model of our application over time
 modelSignal : Signal Model
