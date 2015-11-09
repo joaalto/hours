@@ -20,8 +20,8 @@ currentTime t =
        toString now
 
 -- manage the model of our application over time
-model : Signal Model
-model =
+modelSignal : Signal Model
+modelSignal =
     Signal.foldp update model0 timeSignal
 
 -- mailbox for actions
@@ -37,4 +37,4 @@ timeSignal =
 
 main : Signal Html
 main =
-    Signal.map (view actionMailbox.address) model
+    Signal.map (view actionMailbox.address) modelSignal
