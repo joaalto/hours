@@ -1,11 +1,13 @@
 module Update where
 
+import Date exposing (Date)
 import Model exposing (..)
 
 type Action
     = NoOp
     | Update
     | UpdateTime String
+    | UpdateDate Date
 
 update : Action -> Model -> Model
 update action model =

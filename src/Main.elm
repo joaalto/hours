@@ -23,15 +23,16 @@ timeSignal =
     |> Signal.map currentTime
     |> Signal.map Update.UpdateTime
 
-dateSignal : Signal Date
+dateSignal : Signal Action
 dateSignal =
     every Time.minute
     |> Signal.map Date.fromTime
+    |> Signal.map Update.UpdateDate
 
 -- manage the model of our application over time
 modelSignal : Signal Model
 modelSignal =
-    Signal.foldp update model0 timeSignal
+    Signal.foldp update model0 (Signal.merge timeSignal dateSignal)
 
 -- mailbox for actions
 actionMailbox : Signal.Mailbox Action
