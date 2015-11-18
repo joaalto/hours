@@ -3,6 +3,7 @@ module View where
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Signal exposing (Address)
+import Date exposing (..)
 
 import Model exposing (..)
 import Update exposing (Action)
@@ -22,6 +23,10 @@ view address model =
             (List.map projectRow model.projects)
         ]
       ]
+
+-- weekDates : Date -> List Day
+-- weekDates date =
+
 
 projectRow : Project -> Html
 projectRow project =
