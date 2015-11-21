@@ -8,6 +8,13 @@ import Date exposing (Date, hour, minute, second, fromTime)
 import Signal exposing (Signal, Mailbox, Address)
 import Html exposing (..)
 
+port startTime : Signal Int
+
+-- main = Signal.map show startTime
+main : Signal Html
+main =
+    Signal.map (view actionMailbox.address) modelSignal
+
 currentTime : Float -> String
 currentTime t =
     let date' = fromTime t
@@ -38,7 +45,3 @@ modelSignal =
 actionMailbox : Signal.Mailbox Action
 actionMailbox =
     Signal.mailbox Update.NoOp
-
-main : Signal Html
-main =
-    Signal.map (view actionMailbox.address) modelSignal
