@@ -3,10 +3,11 @@ module Main where
 import Model exposing (..)
 import Update exposing (Action, update)
 import View exposing (view)
-import Time exposing (Time, every, minute)
+import Time exposing (Time, every)
 import Date exposing (Date, hour, minute, second, fromTime)
 import Signal exposing (Signal, Mailbox, Address)
 import Html exposing (..)
+import String exposing (padLeft)
 
 port startTime : Signal Int
 
@@ -18,11 +19,14 @@ main =
 currentTime : Float -> String
 currentTime t =
     let date' = fromTime t
-        hour' = toString (Date.hour date')
-        minute' = toString (Date.minute date')
-        second' = toString (Date.second date')
+        hour' = pad (Date.hour date')
+        minute' = pad (minute date')
+        second' = pad (second date')
     in
         "Current time: " ++ hour' ++ ":" ++ minute' ++ ":" ++ second'
+
+pad : a -> String
+pad = padLeft 2 '0' << toString
 
 timeSignal : Signal Action
 timeSignal =
