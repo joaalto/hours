@@ -3,7 +3,6 @@ module View where
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Signal exposing (Address)
-import Date exposing (..)
 
 import Model exposing (..)
 import Update exposing (Action)
@@ -16,8 +15,8 @@ view address model =
       , table []
         [ thead []
           (th [][] ::
-           List.map (\d ->
-              th [] [ text d ])
+           List.map (\day ->
+              th [] [ text (snd day) ])
               weekDays)
         , tbody []
             (List.map projectRow model.projects)
