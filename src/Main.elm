@@ -19,7 +19,7 @@ main =
 currentTime : Float -> String
 currentTime t =
     let date' = fromTime t
-        hour' = pad (Date.hour date')
+        hour' = pad (hour date')
         minute' = pad (minute date')
         second' = pad (second date')
     in
