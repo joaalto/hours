@@ -6,6 +6,7 @@ import Signal exposing (Address)
 
 import Model exposing (..)
 import Update exposing (Action)
+import DateUtils exposing (..)
 
 view : Address Action -> Model -> Html
 view address model =

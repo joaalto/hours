@@ -1,7 +1,6 @@
 module Model where
 
 import Date exposing (Date)
-import List exposing (indexedMap)
 
 type alias Model =
     { projects : List Project
@@ -26,11 +25,6 @@ emptyModel =
     , time = ""
     , date = Nothing
     }
-
-
-weekDays : List (Int, String)
-weekDays =
-    indexedMap (,) [ "Ma", "Ti", "Ke", "To", "Pe", "La", "Su" ]
 
 model0 : Model
 model0 =
