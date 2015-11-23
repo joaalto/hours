@@ -25,7 +25,7 @@ currentTime t =
     in
         "Current time: " ++ hour' ++ ":" ++ minute' ++ ":" ++ second'
 
-pad : a -> String
+pad : Int -> String
 pad = padLeft 2 '0' << toString
 
 timeSignal : Signal Action
