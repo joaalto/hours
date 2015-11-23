@@ -14,3 +14,10 @@ dates today =
 date : Int -> (Int, String) -> Int
 date today weekDay =
     today + (fst weekDay - today)
+
+-- Add days to timestamp
+add : Int -> Int -> Date
+add days time =
+    time + days * 1000 * 60 * 60 * 24
+    |> toFloat
+    |> Date.fromTime
