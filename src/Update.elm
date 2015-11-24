@@ -14,6 +14,7 @@ update action model =
     case action of
         Update -> model
         UpdateTime currentTime ->
-            { model | time <- currentTime }
+            { model | time = currentTime }
         UpdateDate currentDate ->
-            { model | date <- Just currentDate }
+            { model | date = Just currentDate }
+        NoOp -> model
