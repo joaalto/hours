@@ -29,7 +29,6 @@ dayIndex todayIndex weekDay =
 add : Int -> Time -> Date
 add days time =
     time + (toFloat days) * 1000 * 60 * 60 * 24
-    -- |> toFloat
     |> Date.fromTime
 
 weekdayToInt : Date.Day -> Int
