@@ -9,7 +9,7 @@ import Signal exposing (Signal, Mailbox, Address)
 import Html exposing (..)
 import String exposing (padLeft)
 
-port startTime : Signal Int
+port startTime : Signal Time
 
 -- main = Signal.map show startTime
 main : Signal Html
@@ -36,9 +36,7 @@ timeSignal =
 
 dateSignal : Signal Action
 dateSignal =
-    every Time.minute
-    |> Signal.map Date.fromTime
-    |> Signal.map Update.UpdateDate
+    Signal.map (Update.UpdateDate << Date.fromTime) startTime
 
 -- manage the model of our application over time
 modelSignal : Signal Model
