@@ -16,5 +16,5 @@ update action model =
         UpdateTime currentTime ->
             { model | time = currentTime }
         UpdateDate currentDate ->
-            { model | date = Just currentDate }
+            { model | currentDate = Just currentDate }
         NoOp -> model

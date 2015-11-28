@@ -8,6 +8,7 @@ import Date exposing (Date, hour, minute, second, fromTime)
 import Signal exposing (Signal, Mailbox, Address)
 import Html exposing (..)
 import String exposing (padLeft)
+import Debug
 
 port startTime : Signal Time
 
@@ -36,7 +37,10 @@ timeSignal =
 
 dateSignal : Signal Action
 dateSignal =
+    -- Debug.log("startTime: " ++ toString startTime)
     Signal.map (Update.UpdateDate << Date.fromTime) startTime
+    -- |> Signal.map Date.fromTime
+    -- |> Signal.map Update.UpdateDate
 
 -- manage the model of our application over time
 modelSignal : Signal Model

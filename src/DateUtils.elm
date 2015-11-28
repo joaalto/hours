@@ -1,34 +1,41 @@
 module DateUtils where
 
 import Date exposing (Date)
-import Time exposing (Time)
 import List exposing (indexedMap)
 
 weekDays : List (Int, String)
 weekDays =
     indexedMap (,) [ "Ma", "Ti", "Ke", "To", "Pe", "La", "Su" ]
 
-weekDates : Time -> List Date
-weekDates currentTime =
-    List.map (\dayOffset -> add dayOffset currentTime)
-    (dateOffsets (timeToInt currentTime))
+dayIndexToDate : Int -> Date -> Date
+dayIndexToDate index currentDate =
+    add (dateOffset index currentDate) currentDate
 
-timeToInt : Time -> Int
-timeToInt time =
-    (weekdayToInt << Date.dayOfWeek << Date.fromTime) time
+dateOffset : Int -> Date -> Int
+dateOffset day currentDate =
+    dayIndex (dateToWeekdayIndex currentDate) day
 
-dateOffsets : Int -> List Int
-dateOffsets today =
-    List.map (\day -> dayIndex today day) weekDays
-
-dayIndex : Int -> (Int, String) -> Int
+dayIndex : Int -> Int -> Int
 dayIndex todayIndex weekDay =
-    todayIndex + (fst weekDay - todayIndex)
+    todayIndex + (weekDay - todayIndex)
+
+-- weekDates : Time -> List Date
+-- weekDates currentTime =
+--     List.map (\dayOffset -> add dayOffset currentTime)
+--     (dateOffsets (timeToWeekdayIndex currentTime))
+
+dateToWeekdayIndex : Date -> Int
+dateToWeekdayIndex date =
+    (weekdayToInt << Date.dayOfWeek) date
+
+-- dateOffsets : Int -> List Int
+-- dateOffsets today =
+--     List.map (\day -> dayIndex today day) weekDays
 
 -- Add days to timestamp
-add : Int -> Time -> Date
-add days time =
-    time + (toFloat days) * 1000 * 60 * 60 * 24
+add : Int -> Date -> Date
+add days date =
+    Date.toTime date + (toFloat days) * 1000 * 60 * 60 * 24
     |> Date.fromTime
 
 weekdayToInt : Date.Day -> Int

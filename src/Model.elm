@@ -5,7 +5,7 @@ import Date exposing (Date)
 type alias Model =
     { projects : List Project
     , time : String
-    , date : Maybe Date
+    , currentDate : Maybe Date
     }
 
 type alias Project =
@@ -19,17 +19,17 @@ type alias HourEntry =
     , hours : Float
     }
 
-emptyModel : Model
-emptyModel =
-    { projects = []
-    , time = ""
-    , date = Nothing
-    }
+-- emptyModel : Model
+-- emptyModel =
+--     { projects = []
+--     , time = ""
+--     , date = Nothing
+--     }
 
 model0 : Model
 model0 =
     { time = ""
-    , date = Nothing
+    , currentDate = Nothing
     , projects =
         [
             { id = 1
