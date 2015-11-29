@@ -1,11 +1,20 @@
 module DateUtils where
 
-import Date exposing (Date)
+import Date exposing (Date, day, month)
 import List exposing (indexedMap)
+import Debug exposing (log)
 
 weekDays : List (Int, String)
 weekDays =
     indexedMap (,) [ "Ma", "Ti", "Ke", "To", "Pe", "La", "Su" ]
+
+dayIndexToDateString : Int -> Date -> String
+dayIndexToDateString index currentDate =
+    dateToString (dayIndexToDate index currentDate)
+
+dateToString : Date -> String
+dateToString date =
+    toString (day date) ++ "." ++ toString (month date)
 
 dayIndexToDate : Int -> Date -> Date
 dayIndexToDate index currentDate =
@@ -17,7 +26,7 @@ dateOffset day currentDate =
 
 dayIndex : Int -> Int -> Int
 dayIndex todayIndex weekDay =
-    todayIndex + (weekDay - todayIndex)
+    todayIndex + (log "weekDay" weekDay - log "todayIndex" todayIndex)
 
 dateToWeekdayIndex : Date -> Int
 dateToWeekdayIndex date =

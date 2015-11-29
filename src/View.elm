@@ -10,12 +10,8 @@ import Model exposing (..)
 import Update exposing (Action)
 import DateUtils exposing (..)
 
-import Debug
-
 view : Address Action -> Model -> Html
 view address model =
-    (Debug.log ("currentDate " ++ toString (day model.currentDate)))
-    --Debug.log("time: " ++ toString model.time)
     div
       [ class "main"]
       [ text model.time
@@ -23,16 +19,14 @@ view address model =
         [ thead []
           (th [][] ::
            List.map (\day ->
-              th [] [ text ((snd day) ++ " "
-                ++ toString (dayIndexToDate
-                    (fst day)
-                    model.currentDate))])
+              th [] [ text ((snd day) ++ " " ++ toString
+                  (dayIndexToDateString (fst day) model.currentDate))])
               weekDays)
         , tbody []
             (List.map projectRow model.projects)
         ]
       ]
-
+ 
 projectRow : Project -> Html
 projectRow project =
     tr
