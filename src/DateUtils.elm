@@ -19,18 +19,9 @@ dayIndex : Int -> Int -> Int
 dayIndex todayIndex weekDay =
     todayIndex + (weekDay - todayIndex)
 
--- weekDates : Time -> List Date
--- weekDates currentTime =
---     List.map (\dayOffset -> add dayOffset currentTime)
---     (dateOffsets (timeToWeekdayIndex currentTime))
-
 dateToWeekdayIndex : Date -> Int
 dateToWeekdayIndex date =
     (weekdayToInt << Date.dayOfWeek) date
-
--- dateOffsets : Int -> List Int
--- dateOffsets today =
---     List.map (\day -> dayIndex today day) weekDays
 
 -- Add days to timestamp
 add : Int -> Date -> Date

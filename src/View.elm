@@ -4,7 +4,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Signal exposing (Address)
 import Maybe exposing (withDefault)
-import Date
+import Date exposing (year, month, day)
 
 import Model exposing (..)
 import Update exposing (Action)
@@ -14,8 +14,8 @@ import Debug
 
 view : Address Action -> Model -> Html
 view address model =
-    Debug.log("currentDate: " ++ toString model.currentDate)
-    Debug.log("time: " ++ toString model.time)
+    (Debug.log ("currentDate " ++ toString (day model.currentDate)))
+    --Debug.log("time: " ++ toString model.time)
     div
       [ class "main"]
       [ text model.time
@@ -26,15 +26,12 @@ view address model =
               th [] [ text ((snd day) ++ " "
                 ++ toString (dayIndexToDate
                     (fst day)
-                    (withDefault (Date.fromTime 0) model.currentDate)))])
+                    model.currentDate))])
               weekDays)
         , tbody []
             (List.map projectRow model.projects)
         ]
       ]
-
--- weekDates : Date -> List Day
--- weekDates date =
 
 projectRow : Project -> Html
 projectRow project =

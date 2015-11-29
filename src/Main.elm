@@ -5,13 +5,14 @@ import Update exposing (Action, update)
 import View exposing (view)
 import Time exposing (Time, every)
 import Date exposing (Date, hour, minute, second, fromTime)
-import Signal exposing (Signal, Mailbox, Address)
+import Signal exposing (Signal, Mailbox, Address, send)
 import Html exposing (..)
 import String exposing (padLeft)
 
-port startTime : Signal Time
+import Debug
 
--- main = Signal.map show startTime
+port startTime : Time
+
 main : Signal Html
 main =
     Signal.map (view actionMailbox.address) modelSignal
@@ -36,14 +37,44 @@ timeSignal =
 
 dateSignal : Signal Action
 dateSignal =
-    Signal.map (Update.UpdateDate << Date.fromTime) startTime
+    --Signal.map (Debug.log) startTime
+    Signal.map (Update.UpdateDate << Date.fromTime) (Signal.constant startTime)
 
 -- manage the model of our application over time
 modelSignal : Signal Model
 modelSignal =
-    Signal.foldp update model0 (Signal.merge timeSignal dateSignal)
+    Signal.foldp update initialModel timeSignal
 
 -- mailbox for actions
 actionMailbox : Signal.Mailbox Action
 actionMailbox =
     Signal.mailbox Update.NoOp
+
+initialModel : Model
+initialModel =
+    Debug.log (toString startTime)
+    { time = ""
+    , currentDate = Date.fromTime startTime
+    , projects =
+        [
+            { id = 1
+            , name = "Eka projekti"
+            , hourEntries =
+                [ { dayOfWeek = 0
+                  , hours = 7.5
+                  }
+                , { dayOfWeek = 3
+                  , hours = 7.5
+                  }
+                ]
+            },
+            { id = 2
+            , name = "Toka projekti"
+            , hourEntries =
+                [ { dayOfWeek = 4
+                  , hours = 3.5
+                  }
+                ]
+            }
+        ]
+    }
