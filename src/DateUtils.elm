@@ -3,6 +3,7 @@ module DateUtils where
 import Date exposing (Date, day, month)
 import List exposing (indexedMap)
 import Debug exposing (log)
+import Date.Format exposing (format)
 
 weekDays : List (Int, String)
 weekDays =
@@ -14,11 +15,11 @@ dayIndexToDateString index currentDate =
 
 dateToString : Date -> String
 dateToString date =
-    toString (day date) ++ "." ++ toString (month date)
+    format "%d.%m." date
 
 dayIndexToDate : Int -> Date -> Date
 dayIndexToDate index currentDate =
-    add (dateOffset index currentDate) currentDate
+    add (log "offset" (dateOffset index currentDate)) currentDate
 
 dateOffset : Int -> Date -> Int
 dateOffset day currentDate =
@@ -26,13 +27,14 @@ dateOffset day currentDate =
 
 dayIndex : Int -> Int -> Int
 dayIndex todayIndex weekDay =
-    todayIndex + (log "weekDay" weekDay - log "todayIndex" todayIndex)
+    --todayIndex + (log "weekDay" weekDay - log "todayIndex" todayIndex)
+    todayIndex + (log ">>> weekDay" weekDay - todayIndex)
 
 dateToWeekdayIndex : Date -> Int
 dateToWeekdayIndex date =
     (weekdayToInt << Date.dayOfWeek) date
 
--- Add days to timestamp
+-- Add days to date
 add : Int -> Date -> Date
 add days date =
     Date.toTime date + (toFloat days) * 1000 * 60 * 60 * 24
