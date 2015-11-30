@@ -4,7 +4,6 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Signal exposing (Address)
 import Maybe exposing (withDefault)
-import Date exposing (year, month, day)
 
 import Model exposing (..)
 import Update exposing (Action)
@@ -13,7 +12,7 @@ import DateUtils exposing (..)
 view : Address Action -> Model -> Html
 view address model =
     div
-      [ class "main"]
+      [ myStyle ]
       [ text model.time
       , table []
         [ thead []
@@ -27,13 +26,28 @@ view address model =
         ]
       ]
 
+myStyle : Attribute
+myStyle =
+    style
+        [ ("fontFamily", "sans-serif") ]
+
+inputStyle : Attribute
+inputStyle =
+    style
+        [ ("borderRadius", "4px")
+        , ("textAlign", "right")
+        , ("borderStyle", "solid")
+        , ("borderColor", "grey")
+        , ("width", "8em")
+        ]
+
 projectRow : Project -> Html
 projectRow project =
     tr
       []
       (td [] [text project.name] ::
        List.map (\dayOfWeek ->
-          td [] [input [value (projectEntry dayOfWeek project)] []])
+          td [] [input [inputStyle, value (projectEntry dayOfWeek project)] []])
           [0..6])
 
 projectEntry : Int -> Project -> String

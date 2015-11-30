@@ -17,7 +17,7 @@ main : Signal Html
 main =
     Signal.map (view actionMailbox.address) modelSignal
 
-currentTime : Float -> String
+currentTime : Time -> String
 currentTime t =
     let date' = fromTime t
         hour' = pad (hour date')
@@ -37,7 +37,6 @@ timeSignal =
 
 dateSignal : Signal Action
 dateSignal =
-    --Signal.map (Debug.log) startTime
     Signal.map (Update.UpdateDate << Date.fromTime) (Signal.constant startTime)
 
 -- manage the model of our application over time
