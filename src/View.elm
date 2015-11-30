@@ -19,14 +19,14 @@ view address model =
         [ thead []
           (th [][] ::
            List.map (\day ->
-              th [] [ text ((snd day) ++ " " ++ toString
+              th [] [ text ((snd day) ++ " " ++
                   (dayIndexToDateString (fst day) model.currentDate))])
               weekDays)
         , tbody []
             (List.map projectRow model.projects)
         ]
       ]
- 
+
 projectRow : Project -> Html
 projectRow project =
     tr
