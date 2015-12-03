@@ -4,7 +4,8 @@
     "repository": "https://github.com/joaalto/hours.git",
     "license": "None",
     "source-directories": [
-        "src"
+        "src",
+        "test"
     ],
     "exposed-modules": [],
     "dependencies": {
