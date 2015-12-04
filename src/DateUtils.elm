@@ -18,7 +18,7 @@ dayIndexToDate index currentDate =
 
 dateOffset : Int -> Date -> Int
 dateOffset index currentDate =
-    index - ((weekdayToInt << Date.dayOfWeek) currentDate)
+    index - (weekdayToInt << Date.dayOfWeek) currentDate
 
 addDaysToDate : Int -> Date -> Date
 addDaysToDate days date =
