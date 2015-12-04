@@ -22,13 +22,8 @@ dayIndexToDate index currentDate =
     add (log "offset" (dateOffset index currentDate)) currentDate
 
 dateOffset : Int -> Date -> Int
-dateOffset day currentDate =
-    dayIndex (dateToWeekdayIndex currentDate) day
-
-dayIndex : Int -> Int -> Int
-dayIndex todayIndex weekDay =
-    --todayIndex + (log "weekDay" weekDay - log "todayIndex" todayIndex)
-    log "add" (log ">>> weekDay" weekDay - log "todayIndex" todayIndex)
+dateOffset index currentDate =
+    index - (dateToWeekdayIndex currentDate)
 
 dateToWeekdayIndex : Date -> Int
 dateToWeekdayIndex date =
