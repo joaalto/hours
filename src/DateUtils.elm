@@ -11,15 +11,11 @@ weekDays =
 
 dayIndexToDateString : Int -> Date -> String
 dayIndexToDateString index currentDate =
-    dateToString (dayIndexToDate index currentDate)
-
-dateToString : Date -> String
-dateToString date =
-    format "%d.%m." date
+    format "%d.%m." (dayIndexToDate index currentDate)
 
 dayIndexToDate : Int -> Date -> Date
 dayIndexToDate index currentDate =
-    add (log "offset" (dateOffset index currentDate)) currentDate
+    add (dateOffset index currentDate) currentDate
 
 dateOffset : Int -> Date -> Int
 dateOffset index currentDate =
