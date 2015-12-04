@@ -28,7 +28,7 @@ dateOffset day currentDate =
 dayIndex : Int -> Int -> Int
 dayIndex todayIndex weekDay =
     --todayIndex + (log "weekDay" weekDay - log "todayIndex" todayIndex)
-    todayIndex + log "add" (log ">>> weekDay" weekDay - log "todayIndex" todayIndex)
+    log "add" (log ">>> weekDay" weekDay - log "todayIndex" todayIndex)
 
 dateToWeekdayIndex : Date -> Int
 dateToWeekdayIndex date =
