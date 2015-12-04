@@ -12,7 +12,8 @@ all =
         [
             test "dateToWeekdayIndex" (assertEqual 4 (dateToWeekdayIndex date)),
             test "weekday" (assertEqual Date.Fri (Date.dayOfWeek date)),
-            test "day" (assertEqual 4 (Date.day date))
+            test "day" (assertEqual 4 (Date.day date)),
+            test "dateOffset" (assertEqual -1 (dateOffset 3 date))
         ]
 
 date : Date
