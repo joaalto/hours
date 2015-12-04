@@ -1,15 +1,21 @@
 module Tests where
 
 import ElmTest exposing (..)
-
 import String
+import Date exposing (Date)
 
+import DateUtils exposing (..)
 
 all : Test
 all =
-    suite "A Test Suite"
+    suite "Test date utils"
         [
-            test "Addition" (assertEqual (3 + 7) 10),
-            test "String.left" (assertEqual "a" (String.left 1 "abcdefg")),
-            test "This test should fail" (assert False)
+            test "dateToWeekdayIndex" (assertEqual 4 (dateToWeekdayIndex date)),
+            test "weekday" (assertEqual Date.Fri (Date.dayOfWeek date)),
+            test "day" (assertEqual 4 (Date.day date))
         ]
+
+date : Date
+date = case Date.fromString "2015-12-04" of
+    Err str -> Debug.crash str
+    Ok date -> date
