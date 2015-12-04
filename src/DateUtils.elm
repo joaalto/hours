@@ -2,7 +2,6 @@ module DateUtils where
 
 import Date exposing (Date, day, month)
 import List exposing (indexedMap)
-import Debug exposing (log)
 import Date.Format exposing (format)
 
 weekDays : List (Int, String)
@@ -24,7 +23,7 @@ dateOffset index currentDate =
 -- Add days to date
 add : Int -> Date -> Date
 add days date =
-    Date.toTime date + (toFloat days) * 1000 * 60 * 60 * 24
+    Date.toTime date + (toFloat days) * 86400000
     |> Date.fromTime
 
 weekdayToInt : Date.Day -> Int
