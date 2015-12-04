@@ -14,15 +14,14 @@ dayIndexToDateString index currentDate =
 
 dayIndexToDate : Int -> Date -> Date
 dayIndexToDate index currentDate =
-    add (dateOffset index currentDate) currentDate
+    addDaysToDate (dateOffset index currentDate) currentDate
 
 dateOffset : Int -> Date -> Int
 dateOffset index currentDate =
     index - ((weekdayToInt << Date.dayOfWeek) currentDate)
 
--- Add days to date
-add : Int -> Date -> Date
-add days date =
+addDaysToDate : Int -> Date -> Date
+addDaysToDate days date =
     Date.toTime date + (toFloat days) * 86400000
     |> Date.fromTime
 
