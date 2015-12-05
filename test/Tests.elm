@@ -11,7 +11,9 @@ all =
         [
             test "weekday" (assertEqual Date.Fri (Date.dayOfWeek date)),
             test "day" (assertEqual 4 (Date.day date)),
-            test "dateOffset" (assertEqual -1 (dateOffset 3 date))
+            test "dateOffset" (assertEqual -1 (dateOffset 3 date)),
+            test "dayIndexToDateString"
+                (assertEqual "30.11." (dayIndexToDateString 0 date))
         ]
 
 date : Date
