@@ -45,7 +45,6 @@ actionMailbox =
 
 initialModel : Model
 initialModel =
-    --Debug.log (toString startTime)
     { time = ""
     , currentDate = Date.fromTime startTime
     , projects =
