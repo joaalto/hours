@@ -15,6 +15,7 @@ all =
         ]
 
 date : Date
-date = case Date.fromString "2015-12-04" of
-    Err str -> Debug.crash str
-    Ok date -> date
+date =
+    case Date.fromString "2015-12-04" of
+        Err str -> Debug.crash str
+        Ok date -> date
