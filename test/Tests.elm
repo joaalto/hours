@@ -9,15 +9,15 @@ all : Test
 all =
     suite "Test date utils"
         [
-            test "weekday" (assertEqual Date.Fri (Date.dayOfWeek date)),
-            test "day" (assertEqual 4 (Date.day date)),
-            test "dateOffset" (assertEqual -1 (dateOffset 3 date)),
+            test "weekday" (assertEqual Date.Fri (Date.dayOfWeek testDate)),
+            test "day" (assertEqual 4 (Date.day testDate)),
+            test "dateOffset" (assertEqual -1 (dateOffset 3 testDate)),
             test "dayIndexToDateString"
-                (assertEqual "30.11." (dayIndexToDateString 0 date))
+                (assertEqual "30.11." (dayIndexToDateString 0 testDate))
         ]
 
-date : Date
-date =
+testDate : Date
+testDate =
     case Date.fromString "2015-12-04" of
         Err str -> Debug.crash str
         Ok date -> date
