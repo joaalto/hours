@@ -1,0 +1,5 @@
+{
+    "commands": [
+        "src/**/*.elm : elm-make --output elm.js src/Main.elm"
+    ]
+}
