@@ -22,7 +22,7 @@ currentTime t =
         minute' = pad (minute date')
         second' = pad (second date')
     in
-        "Current time: " ++ hour' ++ ":" ++ minute' ++ ":" ++ second'
+        hour' ++ ":" ++ minute' ++ ":" ++ second'
 
 pad : Int -> String
 pad = padLeft 2 '0' << toString

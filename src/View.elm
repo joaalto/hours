@@ -8,47 +8,52 @@ import Maybe exposing (withDefault)
 import Model exposing (..)
 import Update exposing (Action)
 import DateUtils exposing (..)
+import Style
 
 view : Address Action -> Model -> Html
 view address model =
-    div
-      [ myStyle ]
-      [ text model.time
-      , table []
-        [ thead []
-          (th [][] ::
+    div [ Style.body ]
+        [ navigationPane model
+        , table []
+            [ thead []
+                [ dayHeader model ]
+            , tbody []
+                (List.map projectRow model.projects)
+            ]
+        ]
+
+dayHeader : Model -> Html
+dayHeader model =
+    tr []
+        (th [][] ::
            List.map (\day ->
               th [] [ text ((snd day) ++ " " ++
                   (dayIndexToDateString (fst day) model.currentDate))])
               weekDays)
-        , tbody []
-            (List.map projectRow model.projects)
-        ]
-      ]
 
-myStyle : Attribute
-myStyle =
-    style
-        [ ("fontFamily", "sans-serif") ]
+navigationPane : Model -> Html
+navigationPane model =
+    div []
+        [ div
+            [ Style.timer ]
+            [ text model.time ]
+        , div
+            [ Style.navigation ]
+            [ text "< Edellinen viikko" ]
+        , td
+            [ Style.bold ]
+            [ text "Seuraava viikko >" ]
 
-inputStyle : Attribute
-inputStyle =
-    style
-        [ ("borderRadius", "4px")
-        , ("textAlign", "right")
-        , ("borderStyle", "solid")
-        , ("borderColor", "grey")
-        , ("width", "8em")
         ]
 
 projectRow : Project -> Html
 projectRow project =
-    tr
-      []
-      (td [] [text project.name] ::
-       List.map (\dayOfWeek ->
-          td [] [input [inputStyle, value (projectEntry dayOfWeek project)] []])
-          [0..6])
+    tr []
+      (td [ style [("width", "180px")]]
+        [text project.name] ::
+            List.map (\dayOfWeek ->
+                td [] [input [ Style.input, value (projectEntry dayOfWeek project)] []])
+                [0..6])
 
 projectEntry : Int -> Project -> String
 projectEntry dayOfWeek project =
