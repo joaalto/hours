@@ -1,0 +1,10 @@
+{
+    "commands" : [
+        {
+            "command" : "elm-make --output elm.js src/Main.elm",
+            "action" : "Elm make",
+            "keystroke" : "shift-cmd-m",
+            "autoHideOutput" : "true"
+        }
+    ]
+}
