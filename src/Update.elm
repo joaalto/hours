@@ -2,12 +2,15 @@ module Update where
 
 import Date exposing (Date)
 import Model exposing (..)
+import DateUtils exposing (addDaysToDate)
 
 type Action
     = NoOp
     | Update
     | UpdateTime String
     | UpdateDate Date
+    | PreviousWeek
+    | NextWeek
 
 update : Action -> Model -> Model
 update action model =
@@ -17,4 +20,10 @@ update action model =
             { model | time = currentTime }
         UpdateDate currentDate ->
             { model | currentDate = currentDate }
+        PreviousWeek ->
+            { model | firstDayOfWeek =
+                addDaysToDate -7 model.firstDayOfWeek }
+        NextWeek ->
+            { model | firstDayOfWeek =
+                addDaysToDate 7 model.firstDayOfWeek }
         NoOp -> model

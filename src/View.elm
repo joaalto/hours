@@ -2,18 +2,19 @@ module View where
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 import Signal exposing (Address)
 import Maybe exposing (withDefault)
 
 import Model exposing (..)
-import Update exposing (Action)
+import Update exposing (..)
 import DateUtils exposing (..)
 import Style
 
 view : Address Action -> Model -> Html
 view address model =
     div [ Style.body ]
-        [ navigationPane model
+        [ navigationPane address model
         , table []
             [ thead []
                 [ dayHeader model ]
@@ -31,18 +32,22 @@ dayHeader model =
                   (dayIndexToDateString (fst day) model.currentDate))])
               weekDays)
 
-navigationPane : Model -> Html
-navigationPane model =
+navigationPane : Address Action -> Model -> Html
+navigationPane address model =
     div []
         [ div
             [ Style.timer ]
             [ text model.time ]
         , div
             [ Style.navigation ]
-            [ button [] [ text "< Edellinen viikko" ]]
+            [ button
+                [ onClick address PreviousWeek ]
+                [ text "< Edellinen viikko" ]]
         , div
             [ Style.bold ]
-            [ button [] [ text "Seuraava viikko >" ]]
+            [ button
+                [ onClick address NextWeek ]
+                [ text "Seuraava viikko >" ]]
         ]
 
 projectRow : Project -> Html
