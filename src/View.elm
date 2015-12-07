@@ -39,11 +39,10 @@ navigationPane model =
             [ text model.time ]
         , div
             [ Style.navigation ]
-            [ text "< Edellinen viikko" ]
-        , td
+            [ button [] [ text "< Edellinen viikko" ]]
+        , div
             [ Style.bold ]
-            [ text "Seuraava viikko >" ]
-
+            [ button [] [ text "Seuraava viikko >" ]]
         ]
 
 projectRow : Project -> Html

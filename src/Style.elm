@@ -21,7 +21,8 @@ input =
 navigation : Attribute
 navigation =
     style
-        [ ("fontWeight", "bold")
+        [ ("paddingLeft", "180px")
+        , ("fontWeight", "bold")
         , ("float", "left")
         , ("paddingRight", "2em")
         ]
@@ -36,8 +37,7 @@ floatLeft =
 
 timer =
     style
-        [ ("float", "left")
-        -- , ("paddingRight", "80px")
+        [ ("height", "20px")
         , ("width", "180px")
         , ("minHeight", "1px")
         ]
