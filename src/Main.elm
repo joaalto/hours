@@ -3,6 +3,8 @@ module Main where
 import Model exposing (..)
 import Update exposing (Action, update)
 import View exposing (view)
+import DateUtils exposing (..)
+
 import Time exposing (Time, every)
 import Date exposing (Date, hour, minute, second, fromTime)
 import Signal exposing (Signal, Mailbox, Address, send)
@@ -47,6 +49,7 @@ initialModel : Model
 initialModel =
     { time = ""
     , currentDate = Date.fromTime startTime
+    , firstDayOfWeek = dayIndexToDate 0 (Date.fromTime startTime)
     , projects =
         [
             { id = 1
