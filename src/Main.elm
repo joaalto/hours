@@ -38,7 +38,7 @@ timeSignal =
 -- manage the model of our application over time
 modelSignal : Signal Model
 modelSignal =
-    Signal.foldp update initialModel timeSignal
+    Signal.foldp update initialModel (Signal.merge actionMailbox.signal timeSignal)
 
 -- mailbox for actions
 actionMailbox : Signal.Mailbox Action
