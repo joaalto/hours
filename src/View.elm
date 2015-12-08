@@ -29,7 +29,7 @@ dayHeader model =
         (th [][] ::
            List.map (\day ->
               th [] [ text ((snd day) ++ " " ++
-                  (dayIndexToDateString (fst day) model.currentDate))])
+                  (dayIndexToDateString (fst day) model.firstDayOfWeek))])
               weekDays)
 
 navigationPane : Address Action -> Model -> Html
