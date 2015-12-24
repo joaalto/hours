@@ -4,6 +4,7 @@ import Model exposing (..)
 import Update exposing (Action, update)
 import View exposing (view)
 import DateUtils exposing (..)
+import Api exposing (..)
 
 import Time exposing (Time, every)
 import Date exposing (Date, hour, minute, second, fromTime)
