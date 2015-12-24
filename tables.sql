@@ -8,6 +8,7 @@ create table project(
 
 create table hour_entry(
     id      serial primary key,
+    project_id integer references project (id),
     date    date,
     hours   real
 );
