@@ -2,7 +2,7 @@ module Api where
 
 import Http exposing (Error)
 import Json.Decode as Json exposing (..)
-import Task exposing (..)
+import Task exposing (Task, andThen)
 import Date exposing (Date)
 
 import Model exposing (Project, HourEntry)

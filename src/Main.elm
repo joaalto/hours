@@ -11,6 +11,7 @@ import Date exposing (Date, hour, minute, second, fromTime)
 import Signal exposing (Signal, Mailbox, Address, send)
 import Html exposing (..)
 import String exposing (padLeft)
+import Result exposing (..)
 
 port startTime : Time
 
@@ -44,33 +45,39 @@ modelSignal =
 -- mailbox for actions
 actionMailbox : Signal.Mailbox Action
 actionMailbox =
-    Signal.mailbox Update.NoOp
+    Signal.mailbox Update.GetProjects
+
+resultMailbox : Signal.Mailbox (Result String (List Project))
+resultMailbox =
+    Signal.mailbox (Err "")
+
 
 initialModel : Model
 initialModel =
     { time = ""
     , currentDate = Date.fromTime startTime
     , firstDayOfWeek = dayIndexToDate 0 (Date.fromTime startTime)
-    , projects =
-        [
-            { id = 1
-            , name = "Eka projekti"
-            , hourEntries = []
-                -- [ { date =
-                --   , hours = 7.5
-                --   }
-                -- , { dayOfWeek = 3
-                --   , hours = 7.5
-                --   }
-                -- ]
-            },
-            { id = 2
-            , name = "Toka projekti"
-            , hourEntries = []
-                -- [ { dayOfWeek = 4
-                --   , hours = 3.5
-                --   }
-                -- ]
-            }
-        ]
+    , projects = []
+        -- Api.projects
+        -- [
+        --     { id = 1
+        --     , name = "Eka projekti"
+        --     , hourEntries = []
+        --         -- [ { date =
+        --         --   , hours = 7.5
+        --         --   }
+        --         -- , { dayOfWeek = 3
+        --         --   , hours = 7.5
+        --         --   }
+        --         -- ]
+        --     },
+        --     { id = 2
+        --     , name = "Toka projekti"
+        --     , hourEntries = []
+        --         -- [ { dayOfWeek = 4
+        --         --   , hours = 3.5
+        --         --   }
+        --         -- ]
+        --     }
+        -- ]
     }

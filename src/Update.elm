@@ -3,6 +3,7 @@ module Update where
 import Date exposing (Date)
 import Model exposing (..)
 import DateUtils exposing (addDaysToDate)
+import Api
 
 type Action
     = NoOp
@@ -11,6 +12,7 @@ type Action
     | UpdateDate Date
     | PreviousWeek
     | NextWeek
+    | GetProjects
 
 update : Action -> Model -> Model
 update action model =
@@ -27,3 +29,7 @@ update action model =
             { model | firstDayOfWeek =
                 addDaysToDate 7 model.firstDayOfWeek }
         NoOp -> model
+        GetProjects ->
+            model
+            -- { model | projects =
+                -- Api.projects }
