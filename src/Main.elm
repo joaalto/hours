@@ -55,22 +55,22 @@ initialModel =
         [
             { id = 1
             , name = "Eka projekti"
-            , hourEntries =
-                [ { dayOfWeek = 0
-                  , hours = 7.5
-                  }
-                , { dayOfWeek = 3
-                  , hours = 7.5
-                  }
-                ]
+            , hourEntries = []
+                -- [ { date =
+                --   , hours = 7.5
+                --   }
+                -- , { dayOfWeek = 3
+                --   , hours = 7.5
+                --   }
+                -- ]
             },
             { id = 2
             , name = "Toka projekti"
-            , hourEntries =
-                [ { dayOfWeek = 4
-                  , hours = 3.5
-                  }
-                ]
+            , hourEntries = []
+                -- [ { dayOfWeek = 4
+                --   , hours = 3.5
+                --   }
+                -- ]
             }
         ]
     }
