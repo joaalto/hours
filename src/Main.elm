@@ -45,11 +45,11 @@ modelSignal =
         initialModel
         (Signal.merge actions.signal timeSignal)
 
-actions : Signal.Mailbox Action
+actions : Mailbox Action
 actions =
     Signal.mailbox Update.GetProjects
 
-results : Signal.Mailbox (Result String (List Project))
+results : Mailbox (Result String (List Project))
 results =
     Signal.mailbox (Err "")
 
