@@ -17,7 +17,7 @@ port startTime : Time
 
 main : Signal Html
 main =
-    Signal.map (view actionMailbox.address) modelSignal
+    Signal.map (view actions.address) modelSignal
 
 currentTime : Time -> String
 currentTime t =
@@ -40,15 +40,17 @@ timeSignal =
 -- manage the model of our application over time
 modelSignal : Signal Model
 modelSignal =
-    Signal.foldp update initialModel (Signal.merge actionMailbox.signal timeSignal)
+    Signal.foldp
+        update
+        initialModel
+        (Signal.merge actions.signal timeSignal)
 
--- mailbox for actions
-actionMailbox : Signal.Mailbox Action
-actionMailbox =
+actions : Signal.Mailbox Action
+actions =
     Signal.mailbox Update.GetProjects
 
-resultMailbox : Signal.Mailbox (Result String (List Project))
-resultMailbox =
+results : Signal.Mailbox (Result String (List Project))
+results =
     Signal.mailbox (Err "")
 
 
