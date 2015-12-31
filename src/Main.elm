@@ -12,6 +12,8 @@ import Signal exposing (Signal, Mailbox, Address, send)
 import Html exposing (..)
 import String exposing (padLeft)
 import Result exposing (..)
+import Task exposing (Task)
+import Http exposing (Error)
 
 port startTime : Time
 
@@ -49,7 +51,20 @@ actions : Mailbox Action
 actions =
     Signal.mailbox Update.GetProjects
 
+port requests : Signal (Task Error (List Project))
+-- port requests : Signal (Result a b)
+port requests =
+    Signal.map Api.getProjects queries.signal
+    -- queries.signal
+    --     |> Api.getProjects
+        -- |> Signal.map (\task -> task `andThen` Signal.send results.address)
+
+queries : Mailbox String
+queries =
+    Signal.mailbox ""
+
 results : Mailbox (Result String (List Project))
+-- results : Mailbox (Task String (List Project))
 results =
     Signal.mailbox (Err "")
 

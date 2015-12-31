@@ -8,8 +8,8 @@ import Date exposing (Date)
 import Model exposing (Project, HourEntry)
 
 -- "localhost:3000/project?id=eq.1&select=*,hour_entry{*}"
-projects : Task Error (List Project)
-projects =
+getProjects : String -> Task Error (List Project)
+getProjects query =
     Http.get decodeProjects "localhost:3000/project?select=*,hour_entry{*}"
 
 decodeProjects : Json.Decoder (List Project)
