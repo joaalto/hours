@@ -6,6 +6,7 @@ import View exposing (view)
 import DateUtils exposing (..)
 import Api exposing (..)
 
+import StartApp
 import Time exposing (Time, every)
 import Date exposing (Date, hour, minute, second, fromTime)
 import Signal exposing (Signal, Mailbox, Address, send)
@@ -14,6 +15,7 @@ import String exposing (padLeft)
 -- import Result exposing (Result)
 import Task exposing (Task, toResult, andThen)
 import Http exposing (Error)
+import Effects exposing (Effects)
 
 port startTime : Time
 
@@ -62,7 +64,13 @@ results =
 port requests : Signal (Task Error ())
 port requests =
     Signal.map Api.getProjects queries.signal
-        |> Signal.map (\task -> toResult task `andThen` Signal.send results.address)
+        |> Signal.map (\task -> Task.toResult task `andThen` Signal.send results.address)
+
+getProjects : String -> Effects (Maybe (List Project))
+getProjects query =
+    Api.getProjects query
+        |> Task.toMaybe
+        |> Effects.task
 
 initialModel : Model
 initialModel =
