@@ -5,12 +5,14 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Signal exposing (Address)
 import Maybe exposing (withDefault)
+import Effects exposing (Effects)
 
 import Model exposing (..)
 import Update exposing (..)
 import DateUtils exposing (..)
 import Style
 
+--view : Address Action -> (Model, Effects Action) -> Html
 view : Address Action -> Model -> Html
 view address model =
     div [ Style.body ]

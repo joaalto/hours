@@ -19,9 +19,19 @@ import Effects exposing (Effects)
 
 port startTime : Time
 
+app : StartApp.App Model
+app =
+    StartApp.start
+        { init = init ""
+        , update = update
+        , view = view
+        , inputs = []
+        }
+    -- Signal.map (view actions.address) modelSignal
+
 main : Signal Html
 main =
-    Signal.map (view actions.address) modelSignal
+    app.html
 
 currentTime : Time -> String
 currentTime t =
@@ -41,17 +51,23 @@ timeSignal =
     |> Signal.map currentTime
     |> Signal.map Update.UpdateTime
 
--- manage the model of our application over time
-modelSignal : Signal Model
-modelSignal =
-    Signal.foldp
-        update
-        initialModel
-        (Signal.merge actions.signal timeSignal)
+-- modelSignal : Signal (Model, Effects Action)
+-- modelSignal =
+--     Signal.foldp
+--         update
+--         initialModel
+--         -- (fst initialModel)
+--         (Signal.merge actions.signal timeSignal)
+
+init : String -> (Model, Effects Action)
+init query =
+    ( initialModel
+    , Update.getProjects query
+    )
 
 actions : Mailbox Action
 actions =
-    Signal.mailbox Update.GetProjects
+    Signal.mailbox (Update.GetProjects "")
 
 queries : Mailbox String
 queries =
@@ -66,18 +82,14 @@ port requests =
     Signal.map Api.getProjects queries.signal
         |> Signal.map (\task -> Task.toResult task `andThen` Signal.send results.address)
 
-getProjects : String -> Effects (Maybe (List Project))
-getProjects query =
-    Api.getProjects query
-        |> Task.toMaybe
-        |> Effects.task
-
+-- initialModel : (Model, Effects Action)
 initialModel : Model
 initialModel =
     { time = ""
     , currentDate = Date.fromTime startTime
     , firstDayOfWeek = dayIndexToDate 0 (Date.fromTime startTime)
     , projects = []
+    }
         -- Api.projects
         -- [
         --     { id = 1
@@ -100,4 +112,4 @@ initialModel =
         --         -- ]
         --     }
         -- ]
-    }
+    -- }
