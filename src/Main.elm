@@ -15,7 +15,7 @@ import String exposing (padLeft)
 -- import Result exposing (Result)
 import Task exposing (Task, toResult, andThen)
 import Http exposing (Error)
-import Effects exposing (Effects)
+import Effects exposing (Effects, Never)
 
 port startTime : Time
 
@@ -32,6 +32,10 @@ app =
 main : Signal Html
 main =
     app.html
+
+port tasks : Signal (Task.Task Never ())
+port tasks =
+    app.tasks
 
 currentTime : Time -> String
 currentTime t =
@@ -51,14 +55,6 @@ timeSignal =
     |> Signal.map currentTime
     |> Signal.map Update.UpdateTime
 
--- modelSignal : Signal (Model, Effects Action)
--- modelSignal =
---     Signal.foldp
---         update
---         initialModel
---         -- (fst initialModel)
---         (Signal.merge actions.signal timeSignal)
-
 init : String -> (Model, Effects Action)
 init query =
     ( initialModel
@@ -77,10 +73,10 @@ results : Mailbox (Result Error (List Project))
 results =
     Signal.mailbox (Ok [])
 
-port requests : Signal (Task Error ())
-port requests =
-    Signal.map Api.getProjects queries.signal
-        |> Signal.map (\task -> Task.toResult task `andThen` Signal.send results.address)
+-- port requests : Signal (Task Error ())
+-- port requests =
+--     Signal.map Api.getProjects queries.signal
+--         |> Signal.map (\task -> Task.toResult task `andThen` Signal.send results.address)
 
 -- initialModel : (Model, Effects Action)
 initialModel : Model
