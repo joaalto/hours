@@ -1,6 +1,6 @@
 module Api where
 
-import Http exposing (Error)
+import Http exposing (Error, Response, RawError, send, fromJson, defaultSettings, empty)
 import Json.Decode as Json exposing (..)
 import Task exposing (Task, andThen)
 import Date exposing (Date)
@@ -10,7 +10,20 @@ import Model exposing (Project, HourEntry)
 -- "localhost:3000/project?id=eq.1&select=*,hour_entry{*}"
 getProjects : String -> Task Error (List Project)
 getProjects query =
-    Http.get decodeProjects "localhost:3000/project?select=*,hour_entry{*}"
+    get decodeProjects "localhost:3000/project?select=id,name,hour_entry{*}"
+
+get : Json.Decoder (List Project) -> String -> Task Error (List Project)
+get decoder url =
+    fromJson decodeProjects (crossOriginGet url)
+
+crossOriginGet : String -> Task RawError Response
+crossOriginGet url =
+    send defaultSettings
+        { verb = "GET"
+        , headers = [("Origin", "localhost:3000")]
+        , url = url
+        , body = empty
+        }
 
 decodeProjects : Json.Decoder (List Project)
 decodeProjects =
