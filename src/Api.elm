@@ -23,8 +23,7 @@ decodeProjects =
 decodeHourEntries : Json.Decoder (List HourEntry)
 decodeHourEntries =
     list
-        (object4 HourEntry
+        (object3 HourEntry
             ("id"       := int)
-            ("dayOfWeek":= int)
             ("date"     := Json.customDecoder string Date.fromString)
             ("hours"    := float))
