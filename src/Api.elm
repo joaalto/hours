@@ -10,7 +10,7 @@ import Model exposing (Project, HourEntry)
 -- "localhost:3000/project?id=eq.1&select=*,hour_entry{*}"
 getProjects : String -> Task Error (List Project)
 getProjects query =
-    get decodeProjects "localhost:3000/project?select=id,name,hour_entry{*}"
+    get decodeProjects "/project?select=id,name,hour_entry{*}"
 
 get : Json.Decoder (List Project) -> String -> Task Error (List Project)
 get decoder url =
@@ -20,7 +20,7 @@ crossOriginGet : String -> Task RawError Response
 crossOriginGet url =
     send defaultSettings
         { verb = "GET"
-        , headers = [("Origin", "localhost:3000")]
+        , headers = []
         , url = url
         , body = empty
         }
