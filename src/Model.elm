@@ -1,9 +1,10 @@
 module Model where
 
 import Date exposing (Date)
+import Http
 
 type alias Model =
-    { projects : List Project
+    { projects : Result Http.Error (List Project)
     , time : String
     , currentDate : Date
     , firstDayOfWeek : Date

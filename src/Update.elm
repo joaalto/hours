@@ -1,5 +1,6 @@
 module Update where
 
+import Http
 import Date exposing (Date)
 import Task exposing (Task)
 import Effects exposing (Effects)
@@ -15,7 +16,8 @@ type Action
     | PreviousWeek
     | NextWeek
     | GetProjects String
-    | ProjectList (Maybe (List Project))
+    | ProjectList (Result Http.Error (List Project))
+    -- | ProjectList (Maybe (List Project))
 
 update : Action -> Model -> (Model, Effects Action)
 update action model =
@@ -35,13 +37,13 @@ update action model =
             (model, Effects.none)
         GetProjects query ->
             (model, getProjects query)
-        ProjectList maybeProjects ->
-            ({ model | projects = (Maybe.withDefault [] maybeProjects) }
+        ProjectList projectsResult ->
+            ({ model | projects = projectsResult }
             , Effects.none)
 
 getProjects : String -> Effects Action
 getProjects query =
     Api.getProjects query
-        |> Task.toMaybe
+        |> Task.toResult
         |> Task.map ProjectList
         |> Effects.task
