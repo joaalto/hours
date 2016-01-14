@@ -1,6 +1,6 @@
 module View where
 
-import Date
+import Date exposing (Date)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -20,16 +20,15 @@ view address model =
         Err msg ->
             div [] [ text (toString msg) ]
         Ok projects ->
-            div [] [ text "Jep." ]
-            -- div [ Style.body ]
-            --     [ navigationPane address model
-            --     , table []
-            --         [ thead []
-            --             [ dayHeader model ]
-            --         , tbody []
-            --             (List.map projectRow model.projects)
-            --         ]
-            --     ]
+            div [ Style.body ]
+                [ navigationPane address model
+                , table []
+                    [ thead []
+                        [ dayHeader model ]
+                    , tbody []
+                        (List.map projectRow projects)
+                    ]
+                ]
 
 dayHeader : Model -> Html
 dayHeader model =
@@ -58,21 +57,21 @@ navigationPane address model =
                 [ text "Seuraava viikko >" ]]
         ]
 
--- projectRow : Project -> Html
--- projectRow project =
---     tr []
---       (td [ style [("width", "180px")]]
---         [text project.name] ::
---             List.map (\dayOfWeek ->
---                 td [] [input [ Style.input, value (projectEntry dayOfWeek project)] []])
---                 [0..6])
---
--- projectEntry : Int -> Project -> String
--- projectEntry dayIndex project =
---     let projectEntry = project.hourEntries
---         |> List.filter (\e -> (weekdayToInt (Date.dayOfWeek e)) == dayIndex)
---         |> List.head
---     in
---         case projectEntry of
---             Nothing -> ""
---             Just entry -> toString entry.hours
+projectRow : Project -> Html
+projectRow project =
+    tr []
+      (td [ style [("width", "180px")]]
+        [text project.name] ::
+            List.map (\dayIndex ->
+                td [] [input [ Style.input, value (projectEntry dayIndex project)] []])
+                [0..6])
+
+projectEntry : Int -> Project -> String
+projectEntry dayIndex project =
+    let projectEntry = project.hourEntries
+        |> List.filter (\entry -> (weekdayToInt (Date.dayOfWeek entry.date)) == dayIndex)
+        |> List.head
+    in
+        case projectEntry of
+            Nothing -> ""
+            Just e -> toString e.hours
