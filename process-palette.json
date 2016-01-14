@@ -1,7 +1,7 @@
 {
     "commands" : [
         {
-            "command" : "elm-make --output elm.js src/Main.elm",
+            "command" : "elm-make --output static/elm.js src/Main.elm",
             "action" : "Elm make",
             "keystroke" : "shift-cmd-m",
             "autoHideOutput" : "true"
