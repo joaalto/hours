@@ -61,17 +61,17 @@ init query =
     , Update.getProjects query
     )
 
-actions : Mailbox Action
-actions =
-    Signal.mailbox (Update.GetProjects "")
+-- actions : Mailbox Action
+-- actions =
+--     Signal.mailbox (Update.GetProjects "")
 
-queries : Mailbox String
-queries =
-    Signal.mailbox ""
+-- queries : Mailbox String
+-- queries =
+--     Signal.mailbox ""
 
-results : Mailbox (Result Error (List Project))
-results =
-    Signal.mailbox (Ok [])
+-- results : Mailbox (Result Error (List Project))
+-- results =
+--     Signal.mailbox (Ok [])
 
 -- port requests : Signal (Task Error ())
 -- port requests =
