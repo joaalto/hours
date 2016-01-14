@@ -1,0 +1,26 @@
+{
+  "name": "hours",
+  "version": "0.0.1",
+  "description": "Some Elm stuff",
+  "main": "elm.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "express": "^4.13.3",
+    "request": "^2.67.0",
+    "superagent": "^1.6.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/aaltojoo/hours.git"
+  },
+  "author": "Joonas Aalto",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/aaltojoo/hours#readme"
+}
