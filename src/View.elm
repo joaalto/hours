@@ -26,7 +26,7 @@ view address model =
                     [ thead []
                         [ dayHeader model ]
                     , tbody []
-                        (List.map projectRow projects)
+                        (List.map (projectRow model.firstDayOfWeek) projects)
                     ]
                 ]
 
@@ -57,20 +57,26 @@ navigationPane address model =
                 [ text "Seuraava viikko >" ]]
         ]
 
-projectRow : Project -> Html
-projectRow project =
+projectRow : Date -> Project -> Html
+projectRow firstDayOfWeek project =
     tr []
       (td [ style [("width", "180px")]]
         [text project.name] ::
             List.map (\dayIndex ->
-                td [] [input [ Style.input, value (projectEntry dayIndex project)] []])
+                td []
+                    [ input
+                        [ Style.input
+                        , value (projectEntry dayIndex firstDayOfWeek project)
+                        ] []])
                 [0..6])
 
-projectEntry : Int -> Project -> String
-projectEntry dayIndex project =
-    let projectEntry = project.hourEntries
-        |> List.filter (\entry -> (weekdayToInt (Date.dayOfWeek entry.date)) == dayIndex)
-        |> List.head
+projectEntry : Int -> Date -> Project -> String
+projectEntry dayIndex firstDayOfWeek project =
+    let projectEntry =
+        Debug.log "entries" project.hourEntries
+            |> List.filter (\entry ->
+                (Debug.log "date" (formatDate entry.date)) == Debug.log "currDate" (formatDate (dayIndexToDate dayIndex firstDayOfWeek)))
+            |> List.head
     in
         case projectEntry of
             Nothing -> ""

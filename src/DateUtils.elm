@@ -12,6 +12,10 @@ dayIndexToDateString : Int -> Date -> String
 dayIndexToDateString index currentDate =
     format "%d.%m." (dayIndexToDate index currentDate)
 
+formatDate : Date -> String
+formatDate date =
+    format "%d.%m." date
+
 dayIndexToDate : Int -> Date -> Date
 dayIndexToDate index currentDate =
     addDaysToDate (dateOffset index currentDate) currentDate
