@@ -73,9 +73,9 @@ projectRow firstDayOfWeek project =
 projectEntry : Int -> Date -> Project -> String
 projectEntry dayIndex firstDayOfWeek project =
     let projectEntry =
-        Debug.log "entries" project.hourEntries
+        project.hourEntries
             |> List.filter (\entry ->
-                (Debug.log "date" (formatDate entry.date)) == Debug.log "currDate" (formatDate (dayIndexToDate dayIndex firstDayOfWeek)))
+                formatDate entry.date == formatDate (dayIndexToDate dayIndex firstDayOfWeek))
             |> List.head
     in
         case projectEntry of
