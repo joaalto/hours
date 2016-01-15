@@ -1,7 +1,6 @@
 module Update where
 
 import Http
-import Date exposing (Date)
 import Task exposing (Task)
 import Effects exposing (Effects)
 import Model exposing (..)
@@ -10,9 +9,6 @@ import Api exposing (..)
 
 type Action
     = NoOp
-    | Update
-    | UpdateTime String
-    | UpdateDate Date
     | PreviousWeek
     | NextWeek
     | GetProjects String
@@ -22,11 +18,6 @@ type Action
 update : Action -> Model -> (Model, Effects Action)
 update action model =
     case action of
-        Update -> (model, Effects.none)
-        UpdateTime currentTime ->
-            ({ model | time = currentTime }, Effects.none)
-        UpdateDate currentDate ->
-            ({ model | currentDate = currentDate }, Effects.none)
         PreviousWeek ->
             ({ model | firstDayOfWeek =
                 addDaysToDate -7 model.firstDayOfWeek }, Effects.none)
