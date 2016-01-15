@@ -13,19 +13,18 @@ type Action
     | NextWeek
     | GetProjects String
     | ProjectList (Result Http.Error (List Project))
-    -- | ProjectList (Maybe (List Project))
 
 update : Action -> Model -> (Model, Effects Action)
 update action model =
     case action of
+        NoOp ->
+            (model, Effects.none)
         PreviousWeek ->
             ({ model | firstDayOfWeek =
                 addDaysToDate -7 model.firstDayOfWeek }, Effects.none)
         NextWeek ->
             ({ model | firstDayOfWeek =
                 addDaysToDate 7 model.firstDayOfWeek }, Effects.none)
-        NoOp ->
-            (model, Effects.none)
         GetProjects query ->
             (model, getProjects query)
         ProjectList projectsResult ->
