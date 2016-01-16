@@ -63,19 +63,21 @@ projectRow address firstDayOfWeek project =
       (td [ style [("width", "180px")]]
         [text project.name] ::
             List.map (\dayIndex ->
-                td []
-                    [ input
-                        [ Style.input
-                        , value (hours (hourEntry dayIndex firstDayOfWeek project))
-                        , onClick address (SaveEntry (hourEntry dayIndex firstDayOfWeek project))
-                        ] []])
-                [0..6])
+                let entry = (hourEntry dayIndex firstDayOfWeek project)
+                in
+                    td []
+                        [ input
+                            [ Style.input
+                            , value (hours entry)
+                            , onClick address (SaveEntry entry)
+                            ] []])
+                    [0..6])
 
 hours : Maybe HourEntry -> String
 hours hourEntry =
-        case hourEntry of
-            Nothing -> ""
-            Just e -> toString e.hours
+    case hourEntry of
+        Nothing -> ""
+        Just e -> toString e.hours
 
 hourEntry : Int -> Date -> Project -> Maybe HourEntry
 hourEntry dayIndex firstDayOfWeek project =
