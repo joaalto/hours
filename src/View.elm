@@ -5,8 +5,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Signal exposing (Address)
-import Maybe exposing (withDefault)
-import Effects exposing (Effects)
+import Maybe
 
 import Model exposing (..)
 import Update exposing (..)
