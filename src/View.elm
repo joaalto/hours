@@ -57,7 +57,7 @@ navigationPane address model =
                 [ text "Seuraava viikko >" ]]
         ]
 
---projectRow : Address Action -> Date -> Project -> Html
+projectRow : Address Action -> Date -> Project -> Html
 projectRow address firstDayOfWeek project =
     tr []
       (td [ style [("width", "180px")]]
