@@ -1,8 +1,8 @@
 module Api where
 
-import Http exposing (Error, Response, RawError, send, fromJson, defaultSettings, empty)
+import Http exposing (Error)
 import Json.Decode as Json exposing (..)
-import Task exposing (Task, andThen)
+import Task exposing (Task)
 import Date exposing (Date)
 
 import Model exposing (Project, HourEntry)
