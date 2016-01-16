@@ -13,6 +13,7 @@ type Action
     | NextWeek
     | GetProjects String
     | ProjectList (Result Http.Error (List Project))
+    | SaveEntry (Maybe HourEntry)
 
 update : Action -> Model -> (Model, Effects Action)
 update action model =
@@ -30,6 +31,8 @@ update action model =
         ProjectList projectsResult ->
             ({ model | projects = projectsResult }
             , Effects.none)
+        SaveEntry hourEntry ->
+            (model, Effects.none)
 
 getProjects : String -> Effects Action
 getProjects query =
