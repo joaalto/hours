@@ -1,0 +1,7 @@
+{
+  "cmd": "./make.sh",
+  "name": "Elm-make",
+  "args": [],
+  "sh": true,
+  "keymap": "shift-cmd-m"
+}

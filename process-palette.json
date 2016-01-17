@@ -3,7 +3,7 @@
         {
             "command" : "elm-make --output static/elm.js src/Main.elm",
             "action" : "Elm make",
-            "keystroke" : "shift-cmd-m",
+            "keystroke" : "shift-cmd--",
             "autoHideOutput" : "true"
         }
     ]
