@@ -17,9 +17,12 @@ view : Address Action -> Model -> Html
 view address model =
     case model.projects of
         Err msg ->
-            div [] [ text (toString msg) ]
+            div
+                [ style [ ("color", "red" ) ]]
+                [ text (toString msg) ]
         Ok projects ->
-            div [ Style.body ]
+            div
+                [ Style.body ]
                 [ navigationPane address model
                 , table []
                     [ thead []
