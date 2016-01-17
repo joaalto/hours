@@ -21,3 +21,8 @@ type alias HourEntry =
     , date : Date
     , hours : Float
     }
+
+type alias NewHourEntry =
+    { date : Date
+    , hours : Float
+    }

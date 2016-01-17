@@ -1,5 +1,6 @@
 module View where
 
+import String exposing (toFloat)
 import Date exposing (Date)
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -71,7 +72,9 @@ projectRow address firstDayOfWeek project =
                         [ input
                             [ Style.input
                             , value (hours entry)
-                            , onClick address (SaveEntry entry)
+                            , on "blur" targetValue
+                                (\h -> (Signal.message address
+                                    (SaveEntry (newEntry dayIndex firstDayOfWeek h))))
                             ] []])
                     [0..6])
 
@@ -80,6 +83,16 @@ hours hourEntry =
     case hourEntry of
         Nothing -> ""
         Just e -> toString e.hours
+
+newEntry : Int -> Date -> String -> Maybe NewHourEntry
+newEntry dayIndex firstDayOfWeek hourString =
+    if String.isEmpty hourString then
+        Nothing
+    else
+        Just
+            { date = (dayIndexToDate dayIndex firstDayOfWeek)
+            , hours = Result.withDefault 0 (String.toFloat hourString)
+            }
 
 hourEntry : Int -> Date -> Project -> Maybe HourEntry
 hourEntry dayIndex firstDayOfWeek project =
