@@ -14,6 +14,7 @@ type Action
     | GetProjects String
     | ProjectList (Result Http.Error (List Project))
     | SaveEntry (Maybe NewHourEntry)
+    | EntrySaved (Result Http.Error (List String))
 
 update : Action -> Model -> (Model, Effects Action)
 update action model =
@@ -33,6 +34,8 @@ update action model =
             , Effects.none)
         SaveEntry newEntry ->
             (model, saveEntry newEntry)
+        EntrySaved result ->
+            (model, Effects.none)
 
 getProjects : String -> Effects Action
 getProjects query =
@@ -45,4 +48,8 @@ saveEntry : Maybe NewHourEntry -> Effects Action
 saveEntry hourEntry =
     case (Debug.log "hourEntry" hourEntry) of
         Nothing -> Effects.none
-        Just entry -> Effects.none
+        Just entry ->
+            Api.postEntry entry
+                |> Task.toResult
+                |> Task.map EntrySaved
+                |> Effects.task

@@ -6,7 +6,7 @@ import Json.Encode as Encode exposing (encode)
 import Task exposing (Task)
 import Date exposing (Date)
 
-import Model exposing (Project, HourEntry)
+import Model exposing (Project, HourEntry, NewHourEntry)
 
 getProjects : String -> Task Error (List Project)
 getProjects query =
@@ -28,12 +28,7 @@ decodeHourEntries =
             ("date"     := Json.customDecoder string Date.fromString)
             ("hours"    := float))
 
---postEntry : Maybe HourEntry -> Maybe (Task Error (List String))
+postEntry : NewHourEntry -> Task Error (List String)
 postEntry hourEntry =
-    -- Http.post (list string) "" (Http.string (encode 4 hourEntry))
-    case (Debug.log "entry" hourEntry) of
-        Nothing -> Nothing
-        Just entry -> Just (Http.post (list string) "/project" (Http.string (encode 4 entry)))
-    -- Maybe.map
-    --     (\entry -> (Http.post (list string) "" (encode 4 hourEntry)))
-    --     hourEntry
+        Http.post (list string) "/project" Http.empty
+        -- Http.post (list string) "/project" (Http.string (encode 4 hourEntry))
