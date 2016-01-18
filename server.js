@@ -16,7 +16,14 @@ app.post('/hour_entry', jsonParser, (request, response) => {
     superagent
         .post('localhost:3000/hour_entry')
         .send(request.body)
-        .end((err, res) => response.send(res.body));
+        .end((err, res) => {
+            if(!err) {
+                response.send(res.body);
+            }
+            else {
+                response.status(err.status).send(err.response);
+            }
+        });
 });
 
 const port = 4000;
