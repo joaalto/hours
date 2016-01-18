@@ -98,5 +98,5 @@ hourEntry : Int -> Date -> Project -> Maybe HourEntry
 hourEntry dayIndex firstDayOfWeek project =
     project.hourEntries
         |> List.filter (\entry ->
-            formatDate entry.date == formatDate (dayIndexToDate dayIndex firstDayOfWeek))
+            fullDate entry.date == fullDate (dayIndexToDate dayIndex firstDayOfWeek))
         |> List.head
