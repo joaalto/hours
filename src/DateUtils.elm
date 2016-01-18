@@ -12,10 +12,6 @@ dayIndexToDateString : Int -> Date -> String
 dayIndexToDateString index currentDate =
     format "%d.%m." (dayIndexToDate index currentDate)
 
-formatDate : Date -> String
-formatDate date =
-    format "%d.%m." date
-
 fullDate : Date -> String
 fullDate date =
     format "%Y-%m-%d" date
