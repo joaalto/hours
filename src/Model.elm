@@ -23,6 +23,7 @@ type alias HourEntry =
     }
 
 type alias NewHourEntry =
-    { date : Date
+    { projectId: Int
+    , date : Date
     , hours : Float
     }

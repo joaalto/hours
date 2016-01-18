@@ -13,7 +13,6 @@ import Update exposing (..)
 import DateUtils exposing (..)
 import Style
 
---view : Address Action -> (Model, Effects Action) -> Html
 view : Address Action -> Model -> Html
 view address model =
     case model.projects of
@@ -74,7 +73,7 @@ projectRow address firstDayOfWeek project =
                             , value (hours entry)
                             , on "blur" targetValue
                                 (\h -> (Signal.message address
-                                    (SaveEntry (newEntry dayIndex firstDayOfWeek h))))
+                                    (SaveEntry (newEntry project dayIndex firstDayOfWeek h))))
                             ] []])
                     [0..6])
 
@@ -84,13 +83,14 @@ hours hourEntry =
         Nothing -> ""
         Just e -> toString e.hours
 
-newEntry : Int -> Date -> String -> Maybe NewHourEntry
-newEntry dayIndex firstDayOfWeek hourString =
+newEntry : Project -> Int -> Date -> String -> Maybe NewHourEntry
+newEntry project dayIndex firstDayOfWeek hourString =
     if String.isEmpty hourString then
         Nothing
     else
         Just
-            { date = (dayIndexToDate dayIndex firstDayOfWeek)
+            { projectId = project.id
+            , date = (dayIndexToDate dayIndex firstDayOfWeek)
             , hours = Result.withDefault 0 (String.toFloat hourString)
             }
 

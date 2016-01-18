@@ -33,7 +33,8 @@ postEntry : NewHourEntry -> Task Error (List String)
 postEntry hourEntry =
     let encodedEntry =
         Encode.object
-            [ ("date",  Encode.string (Debug.log "date" (format "%Y-%m-%d" hourEntry.date)))
+            [ ("project_id", Encode.int hourEntry.projectId)
+            , ("date",  Encode.string (Debug.log "date" (format "%Y-%m-%d" hourEntry.date)))
             , ("hours", Encode.float hourEntry.hours)
             ]
     in
