@@ -30,5 +30,10 @@ decodeHourEntries =
 
 postEntry : NewHourEntry -> Task Error (List String)
 postEntry hourEntry =
-        Http.post (list string) "/project" Http.empty
-        -- Http.post (list string) "/project" (Http.string (encode 4 hourEntry))
+    let encodedEntry =
+        Encode.object
+            [ ("date",  Encode.string (Debug.log "date" (toString hourEntry.date)))
+            , ("hours", Encode.float hourEntry.hours)
+            ]
+    in
+        Http.post (list string) "/project" (Http.string (encode 4 encodedEntry))
