@@ -6,6 +6,7 @@ import Json.Encode as Encode exposing (encode)
 import Task exposing (Task)
 import Date exposing (Date)
 
+import DateUtils exposing (formatDate)
 import Model exposing (Project, HourEntry, NewHourEntry)
 
 getProjects : String -> Task Error (List Project)
@@ -32,8 +33,8 @@ postEntry : NewHourEntry -> Task Error (List String)
 postEntry hourEntry =
     let encodedEntry =
         Encode.object
-            [ ("date",  Encode.string (Debug.log "date" (toString hourEntry.date)))
+            [ ("date",  Encode.string (Debug.log "date" (formatDate hourEntry.date)))
             , ("hours", Encode.float hourEntry.hours)
             ]
     in
-        Http.post (list string) "/project" (Http.string (encode 4 encodedEntry))
+        Http.post (list string) "/hour_entry" (Http.string (encode 4 encodedEntry))
