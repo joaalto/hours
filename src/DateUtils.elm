@@ -16,6 +16,10 @@ formatDate : Date -> String
 formatDate date =
     format "%d.%m." date
 
+fullDate : Date -> String
+fullDate date =
+    format "%Y-%m-%d" date
+
 dayIndexToDate : Int -> Date -> Date
 dayIndexToDate index currentDate =
     addDaysToDate (dateOffset index currentDate) currentDate

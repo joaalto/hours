@@ -5,8 +5,8 @@ import Json.Decode as Json exposing (..)
 import Json.Encode as Encode exposing (encode)
 import Task exposing (Task)
 import Date exposing (Date)
-import Date.Format exposing (format)
 
+import DateUtils exposing (fullDate)
 import Model exposing (Project, HourEntry, NewHourEntry)
 
 getProjects : String -> Task Error (List Project)
@@ -34,7 +34,7 @@ postEntry hourEntry =
     let encodedEntry =
         Encode.object
             [ ("project_id", Encode.int hourEntry.projectId)
-            , ("date",  Encode.string (Debug.log "date" (format "%Y-%m-%d" hourEntry.date)))
+            , ("date",  Encode.string (Debug.log "date" (fullDate hourEntry.date)))
             , ("hours", Encode.float hourEntry.hours)
             ]
     in
