@@ -1,5 +1,6 @@
 const express = require('express');
 const superagent = require('superagent');
+const jsonParser = require('body-parser').json();
 
 const app = express()
 
@@ -11,6 +12,13 @@ app.get('/project', (request, response) => {
         .end((err, res) => response.send(res.body));
 });
 
+app.post('/hour_entry', jsonParser, (request, response) => {
+    superagent
+        .post('localhost:3000/hour_entry')
+        .send(request.body)
+        .end((err, res) => response.send(res.body));
+});
+
 const port = 4000;
 app.listen(port);
-console.log('server listening on port ' + port);
+console.log('Express server listening on port ' + port);
