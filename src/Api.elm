@@ -38,4 +38,11 @@ postEntry hourEntry =
             , ("hours", Encode.float hourEntry.hours)
             ]
     in
-        Http.post (list string) "/hour_entry" (Http.string (encode 4 encodedEntry))
+        Http.fromJson
+            (list string)
+            (Http.send Http.defaultSettings
+                { verb = "POST"
+                , headers = [("Content-type", "application/json")]
+                , url = "/hour_entry"
+                , body = (Http.string (encode 4 encodedEntry))
+                })
