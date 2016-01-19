@@ -24,8 +24,9 @@ decodeProjects =
 decodeHourEntries : Json.Decoder (List HourEntry)
 decodeHourEntries =
     list
-        (object3 HourEntry
+        (object4 HourEntry
             ("id"       := int)
+            ("project_id" := int)
             ("date"     := Json.customDecoder string Date.fromString)
             ("hours"    := float))
 
