@@ -85,7 +85,9 @@ hours hourEntry =
 
 newEntry : Project -> Int -> Date -> String -> Maybe NewHourEntry
 newEntry project dayIndex firstDayOfWeek hourString =
-    if String.isEmpty hourString then
+    if String.isEmpty hourString
+        || Result.toMaybe (String.toFloat hourString) == Nothing
+    then
         Nothing
     else
         Just
