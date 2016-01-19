@@ -19,18 +19,17 @@ decodeProjects =
         (object3 Project
             ("id"   := int)
             ("name" := string)
-            ("hour_entry" := decodeHourEntries))
+            ("hour_entry" := list decodeHourEntry))
 
-decodeHourEntries : Json.Decoder (List HourEntry)
-decodeHourEntries =
-    list
-        (object4 HourEntry
-            ("id"       := int)
-            ("project_id" := int)
-            ("date"     := Json.customDecoder string Date.fromString)
-            ("hours"    := float))
+decodeHourEntry : Json.Decoder HourEntry
+decodeHourEntry =
+    (object4 HourEntry
+        ("id"       := int)
+        ("project_id" := int)
+        ("date"     := Json.customDecoder string Date.fromString)
+        ("hours"    := float))
 
-postEntry : NewHourEntry -> Task Error (List String)
+postEntry : NewHourEntry -> Task Error HourEntry
 postEntry hourEntry =
     let encodedEntry =
         Encode.object
@@ -40,10 +39,13 @@ postEntry hourEntry =
             ]
     in
         Http.fromJson
-            (list string)
+            (decodeHourEntry)
             (Http.send Http.defaultSettings
                 { verb = "POST"
-                , headers = [("Content-type", "application/json")]
+                , headers =
+                    [ ("Content-type", "application/json")
+                    , ("Prefer", "return=representation")
+                    ]
                 , url = "/hour_entry"
                 , body = (Http.string (encode 4 encodedEntry))
                 })
