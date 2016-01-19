@@ -15,6 +15,7 @@ app.get('/project', (request, response) => {
 app.post('/hour_entry', jsonParser, (request, response) => {
     superagent
         .post('localhost:3000/hour_entry')
+        .set('Prefer', request.get('Prefer'))
         .send(request.body)
         .end((err, res) => {
             if(!err) {
