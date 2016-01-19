@@ -18,6 +18,7 @@ type alias Project =
 
 type alias HourEntry =
     { id : Int
+    , projectId : Int
     , date : Date
     , hours : Float
     }

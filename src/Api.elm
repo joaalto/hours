@@ -34,7 +34,7 @@ postEntry hourEntry =
     let encodedEntry =
         Encode.object
             [ ("project_id", Encode.int hourEntry.projectId)
-            , ("date",  Encode.string (Debug.log "date" (fullDate hourEntry.date)))
+            , ("date",  Encode.string (fullDate hourEntry.date))
             , ("hours", Encode.float hourEntry.hours)
             ]
     in

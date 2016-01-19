@@ -46,10 +46,23 @@ getProjects query =
 
 saveEntry : Maybe NewHourEntry -> Effects Action
 saveEntry hourEntry =
-    case (Debug.log "hourEntry" hourEntry) of
+    case hourEntry of
         Nothing -> Effects.none
         Just entry ->
             Api.postEntry entry
                 |> Task.toResult
                 |> Task.map EntrySaved
                 |> Effects.task
+
+addEntryToModel : HourEntry -> Model -> Model
+addEntryToModel entry model =
+    { model | projects =
+        Result.map (\projectResult ->
+            List.map (\project ->
+                { project | hourEntries =
+                    if (project.id == entry.projectId) then
+                        entry :: project.hourEntries
+                    else
+                        project.hourEntries })
+            projectResult)
+        model.projects }
