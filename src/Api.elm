@@ -37,13 +37,17 @@ decodeHourEntry =
 postEntry : NewHourEntry -> Task Error HourEntry
 postEntry hourEntry =
     doUpdate
-        { verb = "POST", url = "/hour_entry" }
+        { verb = "POST"
+        , url = "/hour_entry"
+        }
         hourEntry
 
 patchEntry : NewHourEntry -> Task Error HourEntry
 patchEntry hourEntry =
     doUpdate
-        { verb = "PATCH", url = "/hour_entry" }
+        { verb = "PATCH"
+        , url = "/hour_entry?date=eq." ++ fullDate hourEntry.date
+        }
         hourEntry
 
 doUpdate : RequestParams -> NewHourEntry -> Task Error HourEntry
