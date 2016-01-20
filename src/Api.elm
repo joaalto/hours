@@ -57,7 +57,7 @@ doUpdate request hourEntry =
                 , ("Prefer", "return=representation")
                 ]
             , url = request.url
-            , body = (Http.string << encode 4 << encodeEntry) hourEntry
+            , body = (encodeEntry >> encode 4 >> Http.string) hourEntry
             })
 
 encodeEntry : NewHourEntry -> Encode.Value
