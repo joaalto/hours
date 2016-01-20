@@ -40,6 +40,12 @@ postEntry hourEntry =
         { verb = "POST", url = "/hour_entry" }
         hourEntry
 
+patchEntry : NewHourEntry -> Task Error HourEntry
+patchEntry hourEntry =
+    doUpdate
+        { verb = "PATCH", url = "/hour_entry" }
+        hourEntry
+
 doUpdate : RequestParams -> NewHourEntry -> Task Error HourEntry
 doUpdate request hourEntry =
     Http.fromJson
@@ -51,7 +57,7 @@ doUpdate request hourEntry =
                 , ("Prefer", "return=representation")
                 ]
             , url = request.url
-            , body = (Http.string (encode 4 (encodeEntry hourEntry)))
+            , body = (Http.string << encode 4 << encodeEntry) hourEntry
             })
 
 encodeEntry : NewHourEntry -> Encode.Value
