@@ -9,6 +9,11 @@ import Date exposing (Date)
 import DateUtils exposing (fullDate)
 import Model exposing (Project, HourEntry, NewHourEntry)
 
+type alias RequestParams =
+    { verb : String
+    , url : String
+    }
+
 getProjects : String -> Task Error (List Project)
 getProjects query =
     Http.get decodeProjects "/project?select=id,name,hour_entry{*}"
@@ -31,15 +36,21 @@ decodeHourEntry =
 
 postEntry : NewHourEntry -> Task Error HourEntry
 postEntry hourEntry =
+    doUpdate
+        { verb = "POST", url = "/hour_entry" }
+        hourEntry
+
+doUpdate : RequestParams -> NewHourEntry -> Task Error HourEntry
+doUpdate request hourEntry =
     Http.fromJson
         (decodeHourEntry)
         (Http.send Http.defaultSettings
-            { verb = "POST"
+            { verb = request.verb
             , headers =
                 [ ("Content-type", "application/json")
                 , ("Prefer", "return=representation")
                 ]
-            , url = "/hour_entry"
+            , url = request.url
             , body = (Http.string (encode 4 (encodeEntry hourEntry)))
             })
 
