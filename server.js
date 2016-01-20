@@ -27,6 +27,21 @@ app.post('/hour_entry', jsonParser, (request, response) => {
         });
 });
 
+app.patch('/hour_entry', jsonParser, (request, response) => {
+    superagent
+        .patch('localhost:3000/hour_entry?date=' + request.query.date)
+        .set('Prefer', request.get('Prefer'))
+        .send(request.body)
+        .end((err, res) => {
+            if(!err) {
+                response.send(res.body);
+            }
+            else {
+                response.status(err.status).send(err.response);
+            }
+        });
+});
+
 const port = 4000;
 app.listen(port);
 console.log('Express server listening on port ' + port);
