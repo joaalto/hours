@@ -33,16 +33,16 @@ update action model =
             ({ model | projects = projectsResult }
             , Effects.none)
         SaveEntry newEntry ->
-            let updateFunction =
-            case entryExistsForDate model newEntry of
-                False -> Api.postEntry
-                True -> Api.patchEntry
+            let httpRequest =
+                case entryExistsForDate model newEntry of
+                    False -> Api.postEntry
+                    True -> Api.patchEntry
             in
-                (model, saveEntry updateFunction newEntry)
+                (model, saveEntry httpRequest newEntry)
         EntrySaved hourEntry ->
             case hourEntry of
                 Err msg -> (model, Effects.none)
-                Ok entry -> (addEntryToModel entry model, Effects.none)
+                Ok entry -> (addEntryToModel (Debug.log "entry" entry) model, Effects.none)
 
 getProjects : String -> Effects Action
 getProjects query =
@@ -65,11 +65,11 @@ entryExistsForDate model newEntry =
                     projects) > 0
 
 saveEntry : (NewHourEntry -> Task Http.Error HourEntry) -> Maybe NewHourEntry -> Effects Action
-saveEntry updateFunction hourEntry =
+saveEntry httpRequest hourEntry =
     case hourEntry of
         Nothing -> Effects.none
         Just entry ->
-            updateFunction entry
+            httpRequest entry
                 |> Task.toResult
                 |> Task.map EntrySaved
                 |> Effects.task
