@@ -58,11 +58,11 @@ entryExistsForDate model newEntry =
         Just entry ->
             let projects = Result.withDefault [] model.projects
             in
-                List.length
-                    (List.filter (\project ->
-                        List.any (\e -> sameDate e.date entry.date)
-                        project.hourEntries)
-                    projects) > 0
+                List.any (\project ->
+                    List.any (\e ->
+                        sameDate e.date entry.date && e.projectId == entry.projectId)
+                    project.hourEntries)
+                projects
 
 saveEntry : (NewHourEntry -> Task Http.Error HourEntry) -> Maybe NewHourEntry -> Effects Action
 saveEntry httpRequest hourEntry =
