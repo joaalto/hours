@@ -5,6 +5,7 @@ import Json.Decode as Json exposing (..)
 import Json.Encode as Encode exposing (encode)
 import Task exposing (Task)
 import Date exposing (Date)
+import String
 
 import DateUtils exposing (fullDate)
 import Model exposing (Project, HourEntry, NewHourEntry)
@@ -46,7 +47,12 @@ patchEntry : NewHourEntry -> Task Error HourEntry
 patchEntry hourEntry =
     doUpdate
         { verb = "PATCH"
-        , url = "/hour_entry?date=eq." ++ fullDate hourEntry.date
+        , url = String.concat
+            [ "/hour_entry?date=eq."
+            , fullDate hourEntry.date
+            , "&project_id=eq."
+            , toString hourEntry.projectId
+            ]
         }
         hourEntry
 

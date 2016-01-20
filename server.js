@@ -29,7 +29,7 @@ app.post('/hour_entry', jsonParser, (request, response) => {
 
 app.patch('/hour_entry', jsonParser, (request, response) => {
     superagent
-        .patch('localhost:3000/hour_entry?date=' + request.query.date)
+        .patch(`localhost:3000/hour_entry?date=${request.query.date}&project_id=${request.query.project_id}`)
         .set('Prefer', request.get('Prefer'))
         .send(request.body)
         .end((err, res) => {
