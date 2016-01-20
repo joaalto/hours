@@ -33,7 +33,10 @@ update action model =
             ({ model | projects = projectsResult }
             , Effects.none)
         SaveEntry newEntry ->
-            let updateFunction = Api.postEntry
+            let updateFunction =
+            case entryExistsForDate model newEntry of
+                False -> Api.postEntry
+                True -> Api.patchEntry
             in
                 (model, saveEntry updateFunction newEntry)
         EntrySaved hourEntry ->
@@ -48,15 +51,18 @@ getProjects query =
         |> Task.map ProjectList
         |> Effects.task
 
-entryExistsForDate : Model -> NewHourEntry -> Bool
+entryExistsForDate : Model -> Maybe NewHourEntry -> Bool
 entryExistsForDate model newEntry =
-    let projects = Result.withDefault [] model.projects
-    in
-        List.length
-            (List.filter (\project ->
-                List.any (\entry -> sameDate entry.date newEntry.date)
-                project.hourEntries)
-            projects) > 0
+    case newEntry of
+        Nothing -> False
+        Just entry ->
+            let projects = Result.withDefault [] model.projects
+            in
+                List.length
+                    (List.filter (\project ->
+                        List.any (\e -> sameDate e.date entry.date)
+                        project.hourEntries)
+                    projects) > 0
 
 saveEntry : (NewHourEntry -> Task Http.Error HourEntry) -> Maybe NewHourEntry -> Effects Action
 saveEntry updateFunction hourEntry =
