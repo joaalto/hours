@@ -12,6 +12,10 @@ dayIndexToDateString : Int -> Date -> String
 dayIndexToDateString index currentDate =
     format "%d.%m." (dayIndexToDate index currentDate)
 
+sameDate : Date -> Date -> Bool
+sameDate date1 date2 =
+    fullDate date1 == fullDate date2
+
 fullDate : Date -> String
 fullDate date =
     format "%Y-%m-%d" date
