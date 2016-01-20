@@ -31,21 +31,22 @@ decodeHourEntry =
 
 postEntry : NewHourEntry -> Task Error HourEntry
 postEntry hourEntry =
-    let encodedEntry =
-        Encode.object
-            [ ("project_id", Encode.int hourEntry.projectId)
-            , ("date",  Encode.string (fullDate hourEntry.date))
-            , ("hours", Encode.float hourEntry.hours)
-            ]
-    in
-        Http.fromJson
-            (decodeHourEntry)
-            (Http.send Http.defaultSettings
-                { verb = "POST"
-                , headers =
-                    [ ("Content-type", "application/json")
-                    , ("Prefer", "return=representation")
-                    ]
-                , url = "/hour_entry"
-                , body = (Http.string (encode 4 encodedEntry))
-                })
+    Http.fromJson
+        (decodeHourEntry)
+        (Http.send Http.defaultSettings
+            { verb = "POST"
+            , headers =
+                [ ("Content-type", "application/json")
+                , ("Prefer", "return=representation")
+                ]
+            , url = "/hour_entry"
+            , body = (Http.string (encode 4 (encodeEntry hourEntry)))
+            })
+
+encodeEntry : NewHourEntry -> Encode.Value
+encodeEntry hourEntry =
+    Encode.object
+        [ ("project_id", Encode.int hourEntry.projectId)
+        , ("date",  Encode.string (fullDate hourEntry.date))
+        , ("hours", Encode.float hourEntry.hours)
+        ]
