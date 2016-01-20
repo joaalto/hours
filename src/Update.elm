@@ -4,7 +4,7 @@ import Http
 import Task exposing (Task)
 import Effects exposing (Effects)
 import Model exposing (..)
-import DateUtils exposing (addDaysToDate)
+import DateUtils exposing (addDaysToDate, sameDate)
 import Api exposing (..)
 
 type Action
@@ -33,7 +33,9 @@ update action model =
             ({ model | projects = projectsResult }
             , Effects.none)
         SaveEntry newEntry ->
-            (model, saveEntry newEntry)
+            let updateFunction = Api.postEntry
+            in
+                (model, saveEntry updateFunction newEntry)
         EntrySaved hourEntry ->
             case hourEntry of
                 Err msg -> (model, Effects.none)
@@ -46,12 +48,22 @@ getProjects query =
         |> Task.map ProjectList
         |> Effects.task
 
-saveEntry : Maybe NewHourEntry -> Effects Action
-saveEntry hourEntry =
+entryExistsForDate : Model -> NewHourEntry -> Bool
+entryExistsForDate model newEntry =
+    let projects = Result.withDefault [] model.projects
+    in
+        List.length
+            (List.filter (\project ->
+                List.any (\entry -> sameDate entry.date newEntry.date)
+                project.hourEntries)
+            projects) > 0
+
+saveEntry : (NewHourEntry -> Task Http.Error HourEntry) -> Maybe NewHourEntry -> Effects Action
+saveEntry updateFunction hourEntry =
     case hourEntry of
         Nothing -> Effects.none
         Just entry ->
-            Api.postEntry entry
+            updateFunction entry
                 |> Task.toResult
                 |> Task.map EntrySaved
                 |> Effects.task
