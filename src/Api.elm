@@ -70,6 +70,7 @@ doUpdate request hourEntry =
             , body = (encodeEntry >> encode 4 >> Http.string) hourEntry
             })
 
+-- FIXME: patchEntry actually uses HourEntry. Fix data model. Maybe drop id from HourEntry?
 encodeEntry : NewHourEntry -> Encode.Value
 encodeEntry hourEntry =
     Encode.object

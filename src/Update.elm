@@ -41,6 +41,7 @@ update action model =
                 (model, saveEntry httpRequest newEntry)
         EntrySaved hourEntry ->
             case hourEntry of
+                -- FIXME: handle error
                 Err msg -> (model, Effects.none)
                 Ok entry -> (addEntryToModel (Debug.log "entry" entry) model, Effects.none)
 
