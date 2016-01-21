@@ -83,7 +83,7 @@ hours hourEntry =
         Nothing -> ""
         Just e -> toString e.hours
 
-newEntry : Project -> Int -> Date -> String -> Maybe NewHourEntry
+newEntry : Project -> Int -> Date -> String -> Maybe HourEntry
 newEntry project dayIndex firstDayOfWeek hourString =
     if String.isEmpty hourString
         || Result.toMaybe (String.toFloat hourString) == Nothing

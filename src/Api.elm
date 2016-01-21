@@ -8,7 +8,7 @@ import Date exposing (Date)
 import String
 
 import DateUtils exposing (fullDate)
-import Model exposing (Project, HourEntry, NewHourEntry)
+import Model exposing (Project, HourEntry)
 
 type alias RequestParams =
     { verb : String
@@ -29,13 +29,12 @@ decodeProjects =
 
 decodeHourEntry : Json.Decoder HourEntry
 decodeHourEntry =
-    (object4 HourEntry
-        ("id"       := int)
+    (object3 HourEntry
         ("project_id" := int)
         ("date"     := Json.customDecoder string Date.fromString)
         ("hours"    := float))
 
-postEntry : NewHourEntry -> Task Error HourEntry
+postEntry : HourEntry -> Task Error HourEntry
 postEntry hourEntry =
     doUpdate
         { verb = "POST"
@@ -43,7 +42,7 @@ postEntry hourEntry =
         }
         hourEntry
 
-patchEntry : NewHourEntry -> Task Error HourEntry
+patchEntry : HourEntry -> Task Error HourEntry
 patchEntry hourEntry =
     doUpdate
         { verb = "PATCH"
@@ -56,7 +55,7 @@ patchEntry hourEntry =
         }
         hourEntry
 
-doUpdate : RequestParams -> NewHourEntry -> Task Error HourEntry
+doUpdate : RequestParams -> HourEntry -> Task Error HourEntry
 doUpdate request hourEntry =
     Http.fromJson
         (decodeHourEntry)
@@ -70,8 +69,7 @@ doUpdate request hourEntry =
             , body = (encodeEntry >> encode 4 >> Http.string) hourEntry
             })
 
--- FIXME: patchEntry actually uses HourEntry. Fix data model. Maybe drop id from HourEntry?
-encodeEntry : NewHourEntry -> Encode.Value
+encodeEntry : HourEntry -> Encode.Value
 encodeEntry hourEntry =
     Encode.object
         [ ("project_id", Encode.int hourEntry.projectId)

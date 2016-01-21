@@ -13,7 +13,7 @@ type Action
     | NextWeek
     | GetProjects String
     | ProjectList (Result Http.Error (List Project))
-    | SaveEntry (Maybe NewHourEntry)
+    | SaveEntry (Maybe HourEntry)
     | EntrySaved (Result Http.Error HourEntry)
 
 update : Action -> Model -> (Model, Effects Action)
@@ -38,12 +38,14 @@ update action model =
                     False -> Api.postEntry
                     True -> Api.patchEntry
             in
-                (model, saveEntry httpRequest newEntry)
+                case newEntry of
+                    Nothing ->
+                        (model, Effects.none)
+                    Just entry ->
+                        (addEntryToModel entry model, saveEntry httpRequest newEntry)
         EntrySaved hourEntry ->
-            case hourEntry of
-                -- FIXME: handle error
-                Err msg -> (model, Effects.none)
-                Ok entry -> (addEntryToModel (Debug.log "entry" entry) model, Effects.none)
+            -- TODO: Add error handling
+            (model, Effects.none)
 
 getProjects : String -> Effects Action
 getProjects query =
@@ -52,7 +54,7 @@ getProjects query =
         |> Task.map ProjectList
         |> Effects.task
 
-entryExistsForDate : Model -> Maybe NewHourEntry -> Bool
+entryExistsForDate : Model -> Maybe HourEntry -> Bool
 entryExistsForDate model newEntry =
     case newEntry of
         Nothing -> False
@@ -65,7 +67,7 @@ entryExistsForDate model newEntry =
                     project.hourEntries)
                 projects
 
-saveEntry : (NewHourEntry -> Task Http.Error HourEntry) -> Maybe NewHourEntry -> Effects Action
+saveEntry : (HourEntry -> Task Http.Error HourEntry) -> Maybe HourEntry -> Effects Action
 saveEntry httpRequest hourEntry =
     case hourEntry of
         Nothing -> Effects.none
