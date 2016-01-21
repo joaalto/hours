@@ -58,6 +58,7 @@ patchEntry hourEntry =
 doUpdate : RequestParams -> HourEntry -> Task Error HourEntry
 doUpdate request hourEntry =
     Http.fromJson
+        -- TODO: Fix decoding. PATCH returns a list.
         (decodeHourEntry)
         (Http.send Http.defaultSettings
             { verb = request.verb
