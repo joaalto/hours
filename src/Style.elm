@@ -8,6 +8,18 @@ body =
     style
         [ ("fontFamily", "sans-serif") ]
 
+center =
+    style
+        [ ("margin", "0 auto")
+        , ("width", "60%") ]
+
+button =
+    style
+        [ ("borderRadius", "4px")
+        , ("borderStyle", "solid")
+        , ("backgroundColor", "white")
+        ]
+
 input : Attribute
 input =
     style

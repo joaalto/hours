@@ -23,12 +23,15 @@ view address model =
         Ok projects ->
             div
                 [ Style.body ]
-                [ navigationPane address model
-                , table []
-                    [ thead []
-                        [ dayHeader model ]
-                    , tbody []
-                        (List.map (projectRow address model.firstDayOfWeek) projects)
+                [ div
+                    [ Style.center ]
+                    [ navigationPane address model
+                    , table []
+                        [ thead []
+                            [ dayHeader model ]
+                        , tbody []
+                            (List.map (projectRow address model.firstDayOfWeek) projects)
+                        ]
                     ]
                 ]
 
@@ -50,12 +53,12 @@ navigationPane address model =
         , div
             [ Style.navigation ]
             [ button
-                [ onClick address PreviousWeek ]
+                [ Style.button, onClick address PreviousWeek ]
                 [ text "< Edellinen viikko" ]]
         , div
             [ Style.bold ]
             [ button
-                [ onClick address NextWeek ]
+                [ Style.button, onClick address NextWeek ]
                 [ text "Seuraava viikko >" ]]
         ]
 
