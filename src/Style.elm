@@ -26,14 +26,14 @@ input =
         [ ("borderRadius", "4px")
         , ("textAlign", "right")
         , ("borderStyle", "solid")
-        , ("borderColor", "grey")
+        , ("borderColor", "#BFBDBD")
         , ("width", "8em")
         ]
 
 navigation : Attribute
 navigation =
     style
-        [ ("paddingLeft", "180px")
+        [ ("paddingLeft", "186px")
         , ("fontWeight", "bold")
         , ("float", "left")
         , ("paddingRight", "2em")
