@@ -1,4 +1,3 @@
-postgrest postgres://joonas:joonas@localhost/hours \
-    --anonymous joonas \
+postgrest postgres://hours:hours@localhost/hours \
+    --anonymous hours \
     --schema public \
-    --jwt-secret jeppa
