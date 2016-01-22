@@ -44,4 +44,5 @@ app.patch('/hour_entry', jsonParser, (req, res) => {
 
 const port = 4000;
 app.listen(port);
-console.log('Express server listening on port ' + port);
+console.log('Go to http://localhost:' + port);
+
