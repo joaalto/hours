@@ -12,7 +12,6 @@ import Date exposing (Date, hour, minute, second, fromTime)
 import Signal exposing (Signal, Mailbox, Address, send)
 import Html exposing (..)
 import String exposing (padLeft)
--- import Result exposing (Result)
 import Task exposing (Task, toResult, andThen)
 import Http exposing (Error)
 import Effects exposing (Effects, Never)
@@ -27,7 +26,6 @@ app =
         , view = view
         , inputs = []
         }
-    -- Signal.map (view actions.address) modelSignal
 
 main : Signal Html
 main =
@@ -50,38 +48,3 @@ initialModel =
     , firstDayOfWeek = dayIndexToDate 0 (Date.fromTime startTime)
     , projects = (Ok [])
     }
-
--- currentTime : Time -> String
--- currentTime t =
---     let date' = fromTime t
---         hour' = pad (hour date')
---         minute' = pad (minute date')
---         second' = pad (second date')
---     in
---         hour' ++ ":" ++ minute' ++ ":" ++ second'
---
--- pad : Int -> String
--- pad = padLeft 2 '0' << toString
---
--- timeSignal : Signal Action
--- timeSignal =
---     every Time.second
---     |> Signal.map currentTime
---     |> Signal.map Update.UpdateTime
-
--- actions : Mailbox Action
--- actions =
---     Signal.mailbox (Update.GetProjects "")
-
--- queries : Mailbox String
--- queries =
---     Signal.mailbox ""
-
--- results : Mailbox (Result Error (List Project))
--- results =
---     Signal.mailbox (Ok [])
-
--- port requests : Signal (Task Error ())
--- port requests =
---     Signal.map Api.getProjects queries.signal
---         |> Signal.map (\task -> Task.toResult task `andThen` Signal.send results.address)
