@@ -34,7 +34,7 @@ decodeHourEntry =
         ("date"     := Json.customDecoder string Date.fromString)
         ("hours"    := float))
 
-postEntry : HourEntry -> Task Error HourEntry
+postEntry : HourEntry -> Task Error (List String)
 postEntry hourEntry =
     doUpdate
         { verb = "POST"
@@ -42,7 +42,7 @@ postEntry hourEntry =
         }
         hourEntry
 
-patchEntry : HourEntry -> Task Error HourEntry
+patchEntry : HourEntry -> Task Error (List String)
 patchEntry hourEntry =
     doUpdate
         { verb = "PATCH"
@@ -55,17 +55,14 @@ patchEntry hourEntry =
         }
         hourEntry
 
-doUpdate : RequestParams -> HourEntry -> Task Error HourEntry
+doUpdate : RequestParams -> HourEntry -> Task Error (List String)
 doUpdate request hourEntry =
     Http.fromJson
-        -- TODO: Fix decoding. PATCH returns a list.
-        (decodeHourEntry)
+        (list string)
         (Http.send Http.defaultSettings
             { verb = request.verb
             , headers =
-                [ ("Content-type", "application/json")
-                , ("Prefer", "return=representation")
-                ]
+                [ ("Content-type", "application/json") ]
             , url = request.url
             , body = (encodeEntry >> encode 4 >> Http.string) hourEntry
             })

@@ -4,16 +4,13 @@ import Model exposing (..)
 import Update exposing (Action, update)
 import View exposing (view)
 import DateUtils exposing (..)
-import Api exposing (..)
 
 import StartApp
 import Time exposing (Time, every)
 import Date exposing (Date, hour, minute, second, fromTime)
 import Signal exposing (Signal, Mailbox, Address, send)
 import Html exposing (..)
-import String exposing (padLeft)
-import Task exposing (Task, toResult, andThen)
-import Http exposing (Error)
+import Task
 import Effects exposing (Effects, Never)
 
 port startTime : Time
@@ -46,5 +43,6 @@ initialModel =
     { time = ""
     , currentDate = Date.fromTime startTime
     , firstDayOfWeek = dayIndexToDate 0 (Date.fromTime startTime)
-    , projects = (Ok [])
+    , projects = Ok []
+    , httpError = Ok ()
     }

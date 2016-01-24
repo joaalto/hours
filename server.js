@@ -15,11 +15,11 @@ app.get('/project', (req, res) => {
 app.post('/hour_entry', jsonParser, (req, res) => {
     superagent
         .post('localhost:3000/hour_entry')
-        .set('Prefer', req.get('Prefer'))
         .send(req.body)
         .end((err, response) => {
             if(!err) {
-                res.send(response.body);
+                // Elm Json.Decode expects a value so we'll return a list of strings.
+                res.send(["OK"]);
             }
             else {
                 res.status(err.status).send(err.res);
@@ -30,11 +30,11 @@ app.post('/hour_entry', jsonParser, (req, res) => {
 app.patch('/hour_entry', jsonParser, (req, res) => {
     superagent
         .patch(`localhost:3000/hour_entry?date=${req.query.date}&project_id=${req.query.project_id}`)
-        .set('Prefer', req.get('Prefer'))
         .send(req.body)
         .end((err, response) => {
             if(!err) {
-                res.send(response.body);
+                // Elm Json.Decode expects a value so we'll return a list of strings.
+                res.send(["OK"]);
             }
             else {
                 res.status(err.status).send(err.res);
@@ -45,4 +45,3 @@ app.patch('/hour_entry', jsonParser, (req, res) => {
 const port = 4000;
 app.listen(port);
 console.log('Go to http://localhost:' + port);
-

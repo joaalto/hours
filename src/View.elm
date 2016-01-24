@@ -15,25 +15,31 @@ import Style
 
 view : Address Action -> Model -> Html
 view address model =
-    case model.projects of
-        Err msg ->
+    case model.httpError of
+        Err err ->
             div
                 [ style [ ("color", "red" ) ]]
-                [ text (toString msg) ]
-        Ok projects ->
-            div
-                [ Style.body ]
-                [ div
-                    [ Style.content ]
-                    [ navigationPane address model
-                    , table []
-                        [ thead []
-                            [ dayHeader model ]
-                        , tbody []
-                            (List.map (projectRow address model.firstDayOfWeek) projects)
+                [ text (toString err) ]
+        Ok res ->
+            case model.projects of
+                Err msg ->
+                    div
+                        [ style [ ("color", "red" ) ]]
+                        [ text (toString msg) ]
+                Ok projects ->
+                    div
+                        [ Style.body ]
+                        [ div
+                            [ Style.content ]
+                            [ navigationPane address model
+                            , table []
+                                [ thead []
+                                    [ dayHeader model ]
+                                , tbody []
+                                    (List.map (projectRow address model.firstDayOfWeek) projects)
+                                ]
+                            ]
                         ]
-                    ]
-                ]
 
 dayHeader : Model -> Html
 dayHeader model =

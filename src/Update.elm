@@ -14,7 +14,7 @@ type Action
     | GetProjects String
     | ProjectList (Result Http.Error (List Project))
     | SaveEntry (Maybe HourEntry)
-    | EntrySaved (Result Http.Error HourEntry)
+    | EntrySaved (Result Http.Error (List String))
 
 update : Action -> Model -> (Model, Effects Action)
 update action model =
@@ -44,8 +44,11 @@ update action model =
                     Just entry ->
                         (addEntryToModel entry model, saveEntry httpRequest newEntry)
         EntrySaved hourEntry ->
-            -- TODO: Add error handling
-            (model, Effects.none)
+            case hourEntry of
+                Ok entry ->
+                    (model, Effects.none)
+                Err error ->
+                    ({ model | httpError = Err error }, Effects.none)
 
 getProjects : String -> Effects Action
 getProjects query =
@@ -67,7 +70,7 @@ entryExistsForDate model newEntry =
                     project.hourEntries)
                 projects
 
-saveEntry : (HourEntry -> Task Http.Error HourEntry) -> Maybe HourEntry -> Effects Action
+saveEntry : (HourEntry -> Task Http.Error (List String)) -> Maybe HourEntry -> Effects Action
 saveEntry httpRequest hourEntry =
     case hourEntry of
         Nothing -> Effects.none
