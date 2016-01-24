@@ -24,7 +24,7 @@ view address model =
             div
                 [ Style.body ]
                 [ div
-                    [ Style.center ]
+                    [ Style.content ]
                     [ navigationPane address model
                     , table []
                         [ thead []

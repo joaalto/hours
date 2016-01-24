@@ -8,10 +8,9 @@ body =
     style
         [ ("fontFamily", "sans-serif") ]
 
-center =
+content =
     style
-        [ ("margin", "0 auto")
-        , ("width", "60%") ]
+        [ ("margin-left", "5em") ]
 
 button =
     style
