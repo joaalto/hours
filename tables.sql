@@ -5,12 +5,12 @@ create table project(
     id      serial primary key,
     name    varchar(200)
 );
-grant all privileges on table project to hours;
+grant all privileges on table project to hours_user;
 
 insert into project values (1, 'Eka projekti');
 insert into project values (2, 'Toka projekti');
 
-grant usage, select on project_id_seq to hours;
+grant usage, select on project_id_seq to hours_user;
 
 create table hour_entry(
     id      serial primary key,
@@ -18,6 +18,6 @@ create table hour_entry(
     date    date,
     hours   real
 );
-grant all privileges on table hour_entry to hours;
+grant all privileges on table hour_entry to hours_user;
 
-grant usage, select on hour_entry_id_seq to hours;
+grant usage, select on hour_entry_id_seq to hours_user;

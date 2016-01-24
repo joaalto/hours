@@ -1,3 +1,3 @@
-postgrest postgres://hours:hours@localhost/hours \
-    --anonymous hours \
+postgrest postgres://hours_user:hours@localhost/hours \
+    --anonymous hours_user \
     --schema public \
