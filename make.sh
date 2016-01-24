@@ -1,1 +1,1 @@
-elm-make src/Main.elm --output dist/elm.js
+elm-make --yes src/Main.elm --output dist/elm.js
