@@ -1,7 +1,7 @@
 {
   "name": "hours",
   "version": "0.0.1",
-  "description": "Some Elm stuff",
+  "description": "A toy project with Elm",
   "main": "elm.js",
   "directories": {
     "test": "test"
