@@ -50,9 +50,6 @@ navigationPane : Address Action -> Model -> Html
 navigationPane address model =
     div []
         [ div
-            [ Style.timer ]
-            [ text model.time ]
-        , div
             [ Style.navigation ]
             [ button
                 [ Style.button, onClick address PreviousWeek ]

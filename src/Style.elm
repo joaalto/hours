@@ -10,7 +10,9 @@ body =
 
 content =
     style
-        [ ("margin-left", "5em") ]
+        [ ("margin-left", "5em")
+        , ("margin-top", "3em")
+        ]
 
 button =
     style
