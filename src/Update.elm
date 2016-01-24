@@ -30,8 +30,11 @@ update action model =
         GetProjects query ->
             (model, getProjects query)
         ProjectList projectsResult ->
-            ({ model | projects = projectsResult }
-            , Effects.none)
+            case projectsResult of
+                Ok result ->
+                    ({ model | projects = result }, Effects.none)
+                Err error ->
+                    ({ model | httpError = Err error }, Effects.none)
         SaveEntry newEntry ->
             let httpRequest =
                 case entryExistsForDate model newEntry of
@@ -62,13 +65,11 @@ entryExistsForDate model newEntry =
     case newEntry of
         Nothing -> False
         Just entry ->
-            let projects = Result.withDefault [] model.projects
-            in
-                List.any (\project ->
-                    List.any (\e ->
-                        sameDate e.date entry.date && e.projectId == entry.projectId)
-                    project.hourEntries)
-                projects
+            List.any (\project ->
+                List.any (\e ->
+                    sameDate e.date entry.date && e.projectId == entry.projectId)
+                project.hourEntries)
+            model.projects
 
 saveEntry : (HourEntry -> Task Http.Error (List String)) -> Maybe HourEntry -> Effects Action
 saveEntry httpRequest hourEntry =
@@ -83,12 +84,10 @@ saveEntry httpRequest hourEntry =
 addEntryToModel : HourEntry -> Model -> Model
 addEntryToModel entry model =
     { model | projects =
-        Result.map (\projectResult ->
-            List.map (\project ->
-                { project | hourEntries =
-                    if (project.id == entry.projectId) then
-                        entry :: project.hourEntries
-                    else
-                        project.hourEntries })
-            projectResult)
+        List.map (\project ->
+            { project | hourEntries =
+                if (project.id == entry.projectId) then
+                    entry :: project.hourEntries
+                else
+                    project.hourEntries })
         model.projects }

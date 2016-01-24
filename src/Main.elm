@@ -43,6 +43,6 @@ initialModel =
     { time = ""
     , currentDate = Date.fromTime startTime
     , firstDayOfWeek = dayIndexToDate 0 (Date.fromTime startTime)
-    , projects = Ok []
+    , projects = []
     , httpError = Ok ()
     }

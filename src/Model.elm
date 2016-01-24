@@ -4,7 +4,7 @@ import Date exposing (Date)
 import Http
 
 type alias Model =
-    { projects : Result Http.Error (List Project)
+    { projects : List Project
     , httpError : Result Http.Error ()
     , time : String
     , currentDate : Date

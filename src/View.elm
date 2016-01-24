@@ -21,25 +21,21 @@ view address model =
                 [ style [ ("color", "red" ) ]]
                 [ text (toString err) ]
         Ok res ->
-            case model.projects of
-                Err msg ->
-                    div
-                        [ style [ ("color", "red" ) ]]
-                        [ text (toString msg) ]
-                Ok projects ->
-                    div
-                        [ Style.body ]
-                        [ div
-                            [ Style.content ]
-                            [ navigationPane address model
-                            , table []
-                                [ thead []
-                                    [ dayHeader model ]
-                                , tbody []
-                                    (List.map (projectRow address model.firstDayOfWeek) projects)
-                                ]
-                            ]
+            div
+                [ Style.body ]
+                [ div
+                    [ Style.content ]
+                    [ navigationPane address model
+                    , table []
+                        [ thead []
+                            [ dayHeader model ]
+                        , tbody []
+                            (List.map
+                                (projectRow address model.firstDayOfWeek)
+                                model.projects)
                         ]
+                    ]
+                ]
 
 dayHeader : Model -> Html
 dayHeader model =
