@@ -1,12 +1,12 @@
 # A toy project with Elm
 
-A very simple hour entry app written in Elm. The back-end is a PostgreSQL database with a REST API generated with Postgrest.
+A very simple hour entry app written in Elm. The back-end is a PostgreSQL database with a REST API generated with PostgREST.
 
 ## Requirements
 
 - [Elm Platform](http://elm-lang.org/install) version 0.16
 - [PostgreSQL](http://www.postgresql.org/download/)
-- [Postgrest](http://postgrest.com/install/server/)
+- [PostgREST](http://postgrest.com/install/server/)
 - [Node.js](https://nodejs.org/en/) (with ES6 support)
 
 ## Setting up the database
@@ -23,7 +23,7 @@ A very simple hour entry app written in Elm. The back-end is a PostgreSQL databa
 This will:
 
 - install JS dependencies and Elm dependencies
-- start Postgrest
+- start PostgREST
 - start an Express server
 
 Go to [http://localhost:4000](http://localhost:4000)
