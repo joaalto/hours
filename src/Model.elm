@@ -6,7 +6,6 @@ import Http
 type alias Model =
     { projects : List Project
     , httpError : Result Http.Error ()
-    , time : String
     , currentDate : Date
     , firstDayOfWeek : Date
     }

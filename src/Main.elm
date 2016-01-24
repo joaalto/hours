@@ -40,8 +40,7 @@ init query =
 
 initialModel : Model
 initialModel =
-    { time = ""
-    , currentDate = Date.fromTime startTime
+    { currentDate = Date.fromTime startTime
     , firstDayOfWeek = dayIndexToDate 0 (Date.fromTime startTime)
     , projects = []
     , httpError = Ok ()
