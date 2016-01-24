@@ -4,7 +4,7 @@ const jsonParser = require('body-parser').json();
 
 const app = express()
 
-app.use('/', express.static(__dirname + '/static'));
+app.use('/', express.static(__dirname + '/dist'));
 
 app.get('/project', (req, res) => {
     superagent
