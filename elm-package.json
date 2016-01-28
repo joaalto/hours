@@ -1,7 +1,7 @@
 {
     "version": "0.0.1",
     "summary": "",
-    "repository": "https://bitbucket.org/wunderdogsw/hours.git",
+    "repository": "https://github.com/wunderdogsw/hours.git",
     "license": "None",
     "source-directories": [
         "src",
