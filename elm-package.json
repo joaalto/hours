@@ -1,7 +1,7 @@
 {
     "version": "0.0.1",
     "summary": "",
-    "repository": "https://github.com/wunderdogsw/hours.git",
+    "repository": "https://github.com/joaalto/hours.git",
     "license": "None",
     "source-directories": [
         "src",
